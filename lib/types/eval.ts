@@ -2,6 +2,12 @@ import { Condition, Not, And, Or, AssignableTo, UnionIncludes } from "./conditio
 import { UnionToIntersection } from ".";
 
 
+/**
+ * @TODO 
+ * Think of an type aggregation pipline like in MongoDB
+ * 
+ */
+
 type EvalAssignableTo<TTo, TFrom> = TFrom extends TTo ? true : false;
 
 type EvalUnionIncludes<TUnion, TValue> = (
