@@ -1,0 +1,45 @@
+{
+    "compilerOptions": {
+        "rootDir": ".",
+        "outDir": "build",
+        "baseUrl": ".",
+        "paths": {
+            "@models/*":  [ "models/*"    ],
+            "@modules/*": [ "modules/*"   ],
+            "@app/*":     [ "./*"         ],
+            "@common/*":  [ "../common/*" ]
+        },
+        "target":           "es2018",
+        "lib":              ["esnext"],
+        "module":           "commonjs",
+        "moduleResolution": "node",
+        "sourceMap":      true, 
+        "declaration":    true, 
+        "declarationMap": true, 
+        "esModuleInterop":              true, 
+        "allowSyntheticDefaultImports": true,
+        "experimentalDecorators": true,
+        "emitDecoratorMetadata":  true,
+        /* Checking severity level */
+        "strict":                           true,
+        "noUnusedLocals":                   true,
+        "noUnusedParameters":               true,
+        "noImplicitAny":                    true,
+        "noImplicitThis":                   true,
+        "noImplicitReturns":                true,
+        "noFallthroughCasesInSwitch":       true,
+        "noStrictGenericChecks":            false,
+        "strictBindCallApply":              true,
+        "strictFunctionTypes":              true,
+        "strictNullChecks":                 true,
+        "strictPropertyInitialization":     true,
+        "allowUnreachableCode":             false,
+        "forceConsistentCasingInFileNames": true,
+        /* Misc */
+        "alwaysStrict": true,
+        "pretty":       true,
+    },
+    "files":   [ "lib/index.ts" ],
+    "include": [ "lib/**/*" ],
+    "exclude": [ "node_modules/**/*", "build" ]
+}

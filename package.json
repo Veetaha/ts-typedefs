@@ -1,0 +1,44 @@
+{
+    "name": "ts-types",
+    "version": "1.0.0",
+    "description": "A handy collection of TypeScript plain and generic type definitions and interfaces.",
+    "main": "build/lib/index.js",
+    "types": "build/lib/index.d.ts",
+    "keywords": [
+        "types",
+        "typescript",
+        "typings",
+        "typedefs",
+        "interfaces",
+        "type definitions",
+        "essentials"
+    ],
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/Veetaha/ts-types.git"
+    },
+    "scripts": {
+        "docs": "./node_modules/.bin/typedoc --options typedoc.json lib/index.ts && touch docs/.nojekyll",
+        "test": "mocha build/test/tests.js",
+        "build": "tsc",
+        "clean": "rm -rf build docs",
+        "build-test": "npm run build && npm run test",
+        "bootstrap": "npm i && npm run build",
+        "pre-deploy": "npm run clean && npm run build && npm run test",
+        "update-deps": "ncu -u && npm i"
+    },
+    "author": "Vitaliy Kryvenko",
+    "license": "MIT",
+    "dependencies": {
+        "typescript": "3.3.3333"
+    },
+    "devDependencies": {
+        "@types/chai": "latest",
+        "@types/mocha": "latest",
+        "chai": "latest",
+        "mocha": "latest",
+        "npm-check-updates": "^3.0.4",
+        "tslint": "^5.13.1",
+        "typedoc": "^0.14.2"
+    }
+}
