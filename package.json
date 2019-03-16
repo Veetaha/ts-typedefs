@@ -20,7 +20,7 @@
     "scripts": {
         "bootstrap": "npm i && npm run build",
         "build": "npm run codegen && tsc && npm run test",
-        "build-prod": "npm run codegen && tsc --config tsconfig.prod.json",
+        "build-prod": "npm run codegen && tsc --project tsconfig.prod.json",
         "clean": "rm -rf build docs",
         "codegen": "ts-node lib/types/eval/_generate.ts",
         "docs": "./node_modules/.bin/typedoc --options typedoc.json lib/index.ts && touch docs/.nojekyll",

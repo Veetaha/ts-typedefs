@@ -7,9 +7,10 @@ import { FilterProps, Op } from './index';
  *               It is `any` by default, if you use this parameter,
  *               most probably you will specify a union of some string or number unit types.
  */
-export type Obj<TValue = unknown, TKeys extends PropertyKey = any> = (
-    Record<TKeys, TValue>
-);
+export type Obj<
+    TValue = unknown, 
+    TKeys extends PropertyKey = any
+> = Record<TKeys, TValue>;
 
 /**
  * Defines tuple type of `TItems` union type values.
@@ -27,9 +28,10 @@ export type ValueOf<TObj extends Obj> = TObj[keyof TObj];
  * Same as BasicObject<>, but defines all properties as readonly.
  * @param TValue Type of values, stored in object's readonly properties.
  */
-export type ReadonlyObj<TValue = unknown, TKey extends string | number = string> = (
-    Readonly<Obj<TValue, TKey>>
-);
+export type ReadonlyObj<
+    TValue = unknown, 
+    TKey extends string | number = string
+> = Readonly<Obj<TValue, TKey>>;
 
 /**
  * Defines an object type with the same keys as `TSourceObjects`, but all values
@@ -37,9 +39,10 @@ export type ReadonlyObj<TValue = unknown, TKey extends string | number = string>
  * @param TSourceObject Type of object to take properties from.
  * @param TMappedValue  Type of values in the created object type.
  */
-export type MapValues<TSourceObject extends Obj, TMappedValue> = {
-    [TSourceObjectKey in keyof TSourceObject]: TMappedValue;
-};
+export type MapValues<
+    TSourceObject extends Obj, 
+    TMappedValue
+> = Obj<TMappedValue, keyof TSourceObject>;
 
 
 /**
@@ -54,9 +57,7 @@ export type ReplaceValues<
     TSrcObj extends Obj,
     TKeys   extends keyof TSrcObj,
     TNewValue
-> = {
-    [Key in keyof TSrcObj]: Key extends TKeys ? TNewValue : TSrcObj[Key];
-};
+> = Merge<TSrcObj, Obj<TNewValue, TKeys>>;
 
 /**
  * Defines the same object type as `TSrcObj`, but without `TKeysUnion` keys.
@@ -66,9 +67,7 @@ export type ReplaceValues<
 export type RemoveKeys<
     TSrcObj    extends Obj,
     TKeysUnion extends keyof TSrcObj
-> = {
-    [Key in Exclude<keyof TSrcObj, TKeysUnion>]: TSrcObj[Key];
-};
+> = Pick<TSrcObj, Exclude<keyof TSrcObj, TKeysUnion>>;
 
 /**
  * Defines the same object type as `TObj`, but with `TPrevKey` key renamed to `TNewKey`.
@@ -76,17 +75,20 @@ export type RemoveKeys<
  * @param TPrevKey Target property key to rename.
  * @param TNewKey  New name (or symbol) for the `TObj[TPrevKey]` property.
  */
-export type RenameKey<TObj extends Obj, TPrevKey extends keyof Obj, TNewKey extends PropertyKey> = (
-    Merge<RemoveKeys<TObj, TPrevKey>, Obj<TObj[TPrevKey], TNewKey>>
-);
+export type RenameKey<
+    TObj extends Obj, 
+    TPrevKey extends keyof Obj, 
+    TNewKey extends PropertyKey
+> = Merge<RemoveKeys<TObj, TPrevKey>, Obj<TObj[TPrevKey], TNewKey>>;
 
 /** 
  * Merge objects `TObj1` and `TObj2`.
  * Properties types from `TObj2` override the ones defined on `TObj1`.
  */
-export type Merge<TObj1 extends Obj, TObj2 extends Obj> = (
-    RemoveKeys<TObj1, Extract<keyof TObj1, keyof TObj2>> & TObj2
-);
+export type Merge<
+    TObj1 extends Obj, 
+    TObj2 extends Obj
+> = RemoveKeys<TObj1, Extract<keyof TObj1, keyof TObj2>> & TObj2;
 
 /**
  * Defines the same type as `TObj`, but adds 'optional' modifier `?` to all
