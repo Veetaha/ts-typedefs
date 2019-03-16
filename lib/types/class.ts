@@ -5,7 +5,7 @@
  */
 export interface Class<
     TInstance = unknown,
-    TArgs extends any[] = any[]
+    TArgs extends any[] = any
 > 
 extends Function {
     // Note: callable interface type seems better than intersecting with `Function`

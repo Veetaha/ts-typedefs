@@ -16,11 +16,11 @@ Some type names were taken from them.
 
 ## Quick API review
 The most convenient way to explore `'ts-typedefs'` API is by easily browsing your *editor's completion 
-list* that shows signatures and descriptions for selected items. Types, functions and classes names are intended to be super descriptive and intuitive. 
+list* that shows signatures and descriptions for selected items. Types, functions, and classes names are intended to be super descriptive and intuitive. 
 All functional units provide *`typedoc` documentation in comments* so it is easy for
 IDEs to provide you with good hints.
 
-If tour coding conventions allow this, you are encouraged to reexport this library in your project's `(types | interfaces).ts` file where
+If your coding conventions allow this, you are encouraged to reexport this library in your project's `types.ts` or `interfaces.ts` file where
 you can define your additional custom definitions that will be merged with 
 generic ones from `'ts-typedefs'`, and import them in your source files as `I` or `T`:
 
@@ -78,7 +78,7 @@ Let's see them in details.
 
 ### `Obj<TValues, TKeys>`
 
-Defines an object with keys of type `TKeys`, and all values of TValue type.
+Defines an object with keys of type `TKeys`, and all values of `TValue` type.
 ```ts
 type t0 = Obj;                      // { [key: string]: unknown; }     
 type t1 = Obj<boolean>;             // { [key: string]: boolean; }     
@@ -91,7 +91,7 @@ Defines constructor function type.
 ```ts
 interface User { /* ... */ }
 
-// Function & new (...args: any[]) => User
+// Function & new (...args: any) => User
 type t0 = Class<User>;
 
 // Function & new (...args: [string, number]) => User
@@ -263,7 +263,7 @@ type t0 = DeepPartial<User>;
 ## Functions
 
 ### `[Async]Func<TArgs, TRetval, TThis>`
-Defines a Function subtype with the given arguments, return value and `this` context. If it is `AsyncFunc<>` `TRetval` is packed into `Promise<TRetval>`
+Defines a Function subtype with the given arguments, return type and `this` context. If it is `AsyncFunc<>` `TRetval` is packed into `Promise<TRetval>`
 
 ```ts
 interface User { /* ... */ }
