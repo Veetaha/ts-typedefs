@@ -377,7 +377,7 @@ C++ style operator, a syntactic sugar for writing casts like
 Use it with caution! 
 
 This function is actually noop at runtime, all it does is it suppresses 
-'inability to cast' *tsc* error. It's better to use this function rather than
+*'inability to cast'* *tsc* error. It's better to use this function rather than
 `value as any as T` cast, because it amplifies your attention to such uneven
 places in code and it may be easier to do a <kbd>Ctrl</kbd> + <kbd>F</kbd> search for these.
 
@@ -435,7 +435,7 @@ switch (suspect) {
 
 ### `Extends<TExtender, TExtendee>`
 Defines `true` if `TExtender` is assignable to `TExtendee`, otherwise false.
-Beware that if this type is not just `TExtender extends TExtendee ? true : false`. 
+Beware that this type is not just `TExtender extends TExtendee ? true : false`. 
 
 It verifies that you may physically assign a value of type `TExtender` to `TExtendee`.
 That's why union types with excess members that are not assignable to `TExtendee`
@@ -473,7 +473,7 @@ type t1 = UnpackPromise<Promise<void>>;   // void;
 
 // Promise<string>;
 type t2 = UnpackPromise<
-    Promise<Promise<string>
+    Promise<Promise<string>>
 >; 
 
 // string
