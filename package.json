@@ -25,7 +25,7 @@
         "codegen": "ts-node lib/types/eval/_generate.ts",
         "docs": "./node_modules/.bin/typedoc --options typedoc.json lib/index.ts && touch docs/.nojekyll",
         "pre-deploy": "npm run clean && npm run build && npm run test && npm run clean && npm run build-prod",
-        "test": "mocha build/test/tests.js",
+        "test": "mocha build/test/run-all.js",
         "update-deps": "ncu -u && npm i"
     },
     "author": "Vitaliy Kryvenko",
