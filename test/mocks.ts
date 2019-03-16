@@ -14,6 +14,14 @@ export interface Obj2 {
     _7?: Obj2;
 }
 
+export interface Obj3 {
+    _8: 'unit';
+    _9: 9;
+    _10: true;
+    _11: [true, false, 32];
+    _12: [Obj3];
+}
+
 
 export interface CyclicObjOr<T> {
     next: CyclicObjOr<T> | T;

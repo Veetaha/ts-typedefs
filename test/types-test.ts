@@ -1,5 +1,5 @@
 import  * as I from "../lib";
-import { Obj1, Obj2 } from './mocks';
+import { Obj1, Obj2, Obj3 } from './mocks';
 
 type AssertExtends<TTarget, TSuspect extends TTarget> = TTarget | TSuspect;
 
@@ -28,3 +28,6 @@ export type _t5 = AssertExtends<t5, string | number>;
 
 export type t6  = I.AsyncFuncReturnType<(args: any[]) => Promise<Obj1>>;
 export type _t6 = AssertExtends<t6, Obj1>;
+
+export type t7 = I.Widen<Obj3>;
+export type t8 = I.DeepWiden<Obj3>;
