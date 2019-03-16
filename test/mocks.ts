@@ -22,6 +22,11 @@ export interface Obj3 {
     _12: [Obj3];
 }
 
+export class ClassObj { 
+    _1!: number;
+    _2 = function (this: Obj1) {};
+    method() {}    
+}
 
 export interface CyclicObjOr<T> {
     next: CyclicObjOr<T> | T;

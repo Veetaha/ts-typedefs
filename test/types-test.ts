@@ -1,5 +1,5 @@
 import  * as I from "../lib";
-import { Obj1, Obj2, Obj3 } from './mocks';
+import { ClassObj, Obj1, Obj2, Obj3 } from './mocks';
 
 type AssertExtends<TTarget, TSuspect extends TTarget> = TTarget | TSuspect;
 
@@ -31,3 +31,9 @@ export type _t6 = AssertExtends<t6, Obj1>;
 
 export type t7 = I.Widen<Obj3>;
 export type t8 = I.DeepWiden<Obj3>;
+
+
+export type t9  = I.Obj;                      // { [key: string]: unknown; }     
+export type t10 = I.Obj<boolean>;             // { [key: string]: boolean; }     
+export type t11 = I.Obj<string, number>;      // { [key: number]: string;  }
+export type t12 = I.Obj<number, 'p1' | 'p2'>; // { p1: number, p2: number; }
