@@ -1,9 +1,9 @@
-import { Class, Func } from "./index";
+import { Class, Func, Obj } from './index';
 
 /**
  * Defines a class decorator generic function type.
  * 
- * @param TClassType  Target class constructor function type.
+ * @param TClass      Target class constructor function type.
  * 
  * @param targetClass Decorated class constructor function.
  * 
@@ -43,7 +43,7 @@ export type ClassDecorator = (
 export type MethodDecorator<TArgs extends any[] = any[], TRetval = any> = (
     <
         TMethodName   extends string | symbol,
-        TProtoOrClass extends Record<TMethodName, Func<TArgs, TRetval, TProtoOrClass>>
+        TProtoOrClass extends Obj<Func<TArgs, TRetval, TProtoOrClass>, TMethodName>
     >(
         protoOrClass:     TProtoOrClass,
         methodName:       TMethodName,
@@ -69,7 +69,7 @@ export type MethodDecorator<TArgs extends any[] = any[], TRetval = any> = (
 export type PropertyDecorator<TPropType = unknown> = (
     <
         TPropName     extends string | symbol,
-        TProtoOrClass extends Record<TPropName, TPropType>
+        TProtoOrClass extends Obj<TPropType, TPropName>
     >
     (protoOrClass: TProtoOrClass, propName: TPropName) => void
 );
@@ -98,7 +98,7 @@ export type PropertyDecorator<TPropType = unknown> = (
 export type AccessorDecorator<TPropType> = (
     <
         TPropName     extends string | symbol,
-        TProtoOrClass extends Record<TPropName, TPropType>
+        TProtoOrClass extends Obj<TPropType, TPropName>
     >
     (
         protoOrClass:   TProtoOrClass, 
@@ -129,9 +129,9 @@ export type ParameterDecorator<TParamType = unknown> = (
     <
         TMethodName   extends string | symbol,
         TParamIndex   extends number,
-        TProtoOrClass extends Record<
-            TMethodName, 
-            (this: TProtoOrClass, ...args: unknown[] & Record<TParamIndex, TParamType>) => unknown
+        TProtoOrClass extends Obj<
+            (this: TProtoOrClass, ...args: unknown[] & Obj<TParamType, TParamIndex>) => unknown,
+            TMethodName
         >
 
     >

@@ -40,6 +40,6 @@
         "pretty":       true,
     },
     "files":   [ "lib/index.ts" ],
-    "include": [ "lib/**/*", "test/**/*" ],
+    "include": [ "lib/**/*" ],
     "exclude": [ "_*.ts", "node_modules/**/*", "build" ]
 }
