@@ -1,7 +1,7 @@
 import { Obj } from './index';
 
 /**
- * Defines type `T` that may also be null or undefined.
+ * Defines type `T` that may also be `null` or `undefined`.
  * @param T Target type to make "nullable".
  */
 export type Nullable<T> = T | null | undefined;
