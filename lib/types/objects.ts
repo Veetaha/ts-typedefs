@@ -34,15 +34,15 @@ export type ReadonlyObj<
 > = Readonly<Obj<TValue, TKey>>;
 
 /**
- * Defines an object type with the same keys as `TSourceObjects`, but all values
- * of `TMappedValue`.
- * @param TSourceObject Type of object to take properties from.
+ * Defines the same object type as `TSrcObj`, but all values
+ * of `TMappedValue` type.
+ * @param TSrcObj       Type of object to take keys from.
  * @param TMappedValue  Type of values in the created object type.
  */
 export type MapValues<
-    TSourceObject extends Obj, 
+    TSrcObj extends Obj, 
     TMappedValue
-> = Obj<TMappedValue, keyof TSourceObject>;
+> = Obj<TMappedValue, keyof TSrcObj>;
 
 
 /**
@@ -84,11 +84,12 @@ export type RenameKey<
 /** 
  * Merge objects `TObj1` and `TObj2`.
  * Properties types from `TObj2` override the ones defined on `TObj1`.
+ * This type is analogous to the return type of `Object.assign()`
  */
 export type Merge<
     TObj1 extends Obj, 
     TObj2 extends Obj
-> = RemoveKeys<TObj1, Extract<keyof TObj1, keyof TObj2>> & TObj2;
+ > = RemoveKeys<TObj1, Extract<keyof TObj1, keyof TObj2>> & TObj2;
 
 /**
  * Defines the same type as `TObj`, but adds 'optional' modifier `?` to all

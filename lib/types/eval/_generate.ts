@@ -55,8 +55,8 @@ type Eval_${i}<TOp extends Op.BoolOp, TParam> = (
     Impl.Equiv<Eval_${i + 1}<TEquivOp1, TParam>, Eval_${i + 1}<TEquivOp2, TParam>> :
 
     
-    TOp extends Op.Extends      <infer TAssignTarget>   ? Impl.Extends      <TAssignTarget,   TParam> :
-    TOp extends Op.UnionIncludes<infer TIncludesTarget> ? Impl.UnionIncludes<TIncludesTarget, TParam> :
+    TOp extends Op.Extends<infer TExtendee>       ? Impl.Extends<TParam, TExtendee>       :
+    TOp extends Op.UnionIncludes<infer THaystack> ? Impl.UnionIncludes<THaystack, TParam> :
 
     never
 );

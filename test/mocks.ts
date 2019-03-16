@@ -28,7 +28,27 @@ export class ClassObj {
     method() {}    
 }
 
+export interface User {
+    id:         number;
+    login:      string | null;
+    password:   string;
+    isDisabled: boolean;
+}
+
 export interface CyclicObjOr<T> {
     next: CyclicObjOr<T> | T;
 }
 export type CyclicObj = CyclicObjOr<number>;
+export interface User2 {
+    id: number;
+    name: {
+        first: string;
+        last:  string;
+    }
+    parent: User;
+}
+
+
+export declare class User3 {
+    static getById(id: number): Promise<User>;
+}

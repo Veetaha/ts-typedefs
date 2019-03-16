@@ -36,19 +36,26 @@ export type Nor <T extends boolean[]> = Not<Or <T>>;
  * Defines `true` or `false` accroding to the definition of `and` logical operator.
  * It gets applied to all the argumets in the given tuple type `T`.
  */
-export type And<T extends boolean[]>  = Not<UnionIncludes<T[number], false>>;
+export type And<T extends boolean[]> = Not<UnionIncludes<T[number], false>>;
 /**
  * Defines `true` or `false` according to the definition of `or` logical operator.
  * It gets applied to all the argumets in the given tuple type `T`.
  */
-export type Or <T extends boolean[]>  =     UnionIncludes<T[number], true>;
+export type Or <T extends boolean[]> = UnionIncludes<T[number], true>;
 
 /**
- * Defines `true` if `TExtender extends TExtendee`, otherwise false.
+ * Defines `true` if `TExtender` is assignable to `TExtendee`, otherwise false.
  * @param TExtender Type to check for covariance     with `TExtendee`.
  * @param TExtendee Type to check for contravariance with `TExtender`.
+ * 
+ * @remarks
+ * It verifies that you may physically assign a value of type `TExtender` to `TExtendee`.
+ * That's why union types with excess members that are not assignable to `TExtendee`
+ * will evaluate to `false`.
  */
-export type Extends<TExtender, TExtendee> = TExtender extends TExtendee ? true : false;
+export type Extends<TExtender, TExtendee> = (
+    false extends (TExtender extends TExtendee ? true : false) ? false : true
+);
 
 /**
  * Defines `true` if the given `TUnion` includes `TValue`.

@@ -1,4 +1,4 @@
-import { UnpackPromise } from './index';
+import { UnpackPromise, Tuple } from './index';
 
 /**
  * Defines a Function subtype with the given arguments, return value and `this` context.
@@ -9,15 +9,14 @@ import { UnpackPromise } from './index';
  * 
  */
 export interface Func<
-    TArgs extends any[] = any[],
-    TRetval             = unknown,
-    TThis               = unknown
+    TArgs extends Tuple<any> = any,
+    TRetval                  = unknown,
+    TThis                    = unknown
 > extends Function {
     // Note: see './class.ts/Class' note to learn about suppresion reasons
     // tslint:disable-next-line: callable-types
     (this: TThis, ...args: TArgs): TRetval;
 }
-
 
 /**
  * Defines an asyncronous function, which is typically marked with `async` modifier,
@@ -29,9 +28,9 @@ export interface Func<
  * 
  */
 export type AsyncFunc<
-    TArgs extends any[] = any[], 
-    TRet                = unknown,
-    TThis               = unknown
+    TArgs extends Tuple<any> = any, 
+    TRet                     = unknown,
+    TThis                    = unknown
 > = Func<TArgs, Promise<TRet>, TThis>;
 
 
