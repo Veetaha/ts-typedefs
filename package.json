@@ -1,5 +1,5 @@
 {
-    "name": "ts-types",
+    "name": "ts-typedefs",
     "version": "1.0.0",
     "description": "A handy collection of TypeScript plain and generic type definitions and interfaces.",
     "main": "build/lib/index.js",
@@ -15,7 +15,7 @@
     ],
     "repository": {
         "type": "git",
-        "url": "https://github.com/Veetaha/ts-types.git"
+        "url": "https://github.com/Veetaha/ts-typedefs.git"
     },
     "scripts": {
         "bootstrap": "npm i && npm run build",
