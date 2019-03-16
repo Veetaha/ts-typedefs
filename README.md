@@ -1,6 +1,6 @@
 # ts-typedefs
 
-# ...Currenly focust on this README, come back soon to see documentation here!
+# ...Currenly focused on this README, come back soon to see documentation here!
 
 [![npm version](https://badge.fury.io/js/vee-type-safe.svg)](https://badge.fury.io/js/ts-typedefs)
 [![Build Status](https://travis-ci.com/Veetaha/ts-types.svg?branch=master)](https://travis-ci.com/Veetaha/ts-types) 
