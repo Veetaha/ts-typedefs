@@ -1,6 +1,6 @@
 {
     "name": "ts-typedefs",
-    "version": "1.0.8",
+    "version": "1.0.9",
     "description": "A handy collection of TypeScript plain and generic type definitions and interfaces.",
     "main": "build/lib/index.js",
     "types": "build/lib/index.d.ts",
@@ -19,7 +19,7 @@
     },
     "scripts": {
         "bootstrap":   "npm i && npm run build",
-        "build":       "npm run clean && npm run codegen && tsc && npm run test",
+        "build":       "npm run clean && npm run codegen && tsc",
         "build-prod":  "npm run clean && npm run codegen && tsc --project tsconfig.prod.json",
         "clean":       "rm -rf build",
         "codegen":     "ts-node lib/types/eval/_generate.ts",
