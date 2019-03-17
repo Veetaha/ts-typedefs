@@ -1,10 +1,12 @@
 <h1 align="center">ts-typedefs</h1>
 
-<img 
-    style="display: block; margin: 0 auto;" 
-    src="assets/jumbotron.png" 
-    width="500px"
-/>
+<a href="https://www.npmjs.com/package/ts-typedefs">
+    <img 
+        style="display: block; margin: 0 auto;" 
+        src="assets/jumbotron.png" 
+        width="500px"
+    />
+</a>
 ---
 
 [![npm version](https://badge.fury.io/js/ts-typedefs.svg)](https://badge.fury.io/js/ts-typedefs)
