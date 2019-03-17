@@ -1,13 +1,13 @@
 <h1 align="center">ts-typedefs</h1>
 
-<figure align="center">
+<p align="center">
     <a href="https://www.npmjs.com/package/ts-typedefs">
         <img 
             src="assets/jumbotron.png" 
             width="500px"
         />
     </a>
-</figure>
+</p>
 
 ---
 
