@@ -29,6 +29,12 @@ export type BoolOp = (
     | Extends
 );
 
+/**
+ * Defines a logical ternary operator.
+ * @param TCond    Boolean type that controlls which branch to choose.
+ * @param TIfTrue  True  branch operator.
+ * @param TElse    False branch operator.
+ */
 export interface If<
     TCond   extends BoolOp, 
     TIfTrue extends BoolOp, 
