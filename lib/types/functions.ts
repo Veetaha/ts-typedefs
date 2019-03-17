@@ -11,7 +11,7 @@ import { UnpackPromise, Tuple } from './index';
 export interface Func<
     TArgs extends Tuple<any> = any,
     TRetval                  = unknown,
-    TThis                    = unknown
+    TThis                    = any
 > extends Function {
     // Note: see './class.ts/Class' note to learn about suppresion reasons
     // tslint:disable-next-line: callable-types
@@ -30,7 +30,7 @@ export interface Func<
 export type AsyncFunc<
     TArgs extends Tuple<any> = any, 
     TRet                     = unknown,
-    TThis                    = unknown
+    TThis                    = any
 > = Func<TArgs, Promise<TRet>, TThis>;
 
 
@@ -42,3 +42,19 @@ export type AsyncFunc<
 export type AsyncFuncReturnType<TAsyncFunc extends AsyncFunc> = (
     UnpackPromise<ReturnType<TAsyncFunc>>
 );
+
+
+/**
+ * Defines type predicate function, i.e. a function that takes `suspect` of `unknown` type
+ * and returns a boolean that denotes whether `suspect` is of `TTarget` type or not.
+ * 
+ * @param TTarget Type that this predicate checks `suspect` to conform to.
+ * @param TThis   Type of `this` context of the predicate.
+ */
+export interface TypePredicate<
+    TTarget = unknown,
+    TThis   = any
+> extends Function {
+    // tslint:disable-next-line: callable-types
+    (this: TThis, suspect: unknown): suspect is TTarget;
+}

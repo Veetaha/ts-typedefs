@@ -1,4 +1,5 @@
 import { Tuple, Obj } from './index';
+import { TypePredicate } from './functions';
 
 /**
  * Defines the type of value, which is passed to `TPromise.then(cb)` `cb` callback.
@@ -61,3 +62,13 @@ type DeepWidenImpl<TObj extends Obj> = {
         ? (TVal extends Obj ? DeepWiden<TVal> : Widen<TVal>)
         : never;
 };
+
+
+/**
+ * Defines a type that the given `TTypePred` checks its `suspect` to conform to.
+ * 
+ * @param TTypePred Target `TypePredicate` function to unpack.
+ */
+export type UnpackTypePredicate<TTypePred extends TypePredicate> = (
+    TTypePred extends (suspect: unknown) => suspect is infer TTarget ? TTarget : never
+);

@@ -68,7 +68,11 @@ export type t25 = I.Func<[boolean], number, User>;
 export type t26 = I.AsyncFuncReturnType<I.AsyncFunc<[number, string], User3>>;
 export type t27 = I.AsyncFuncReturnType<typeof User3.getById>;
 
-export type t28 = (...args: any) => void;
+export type t28 = I.UnpackTypePredicate<I.TypePredicate<User, User>>;
+
+
+
+
 
 
 
