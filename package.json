@@ -23,7 +23,7 @@
         "build-prod":  "npm run clean && npm run codegen && tsc --project tsconfig.prod.json",
         "clean":       "rm -rf build",
         "codegen":     "ts-node lib/types/eval/_generate.ts",
-        "docs":        "typedoc --options typedoc.json lib/index.ts && touch docs/.nojekyll && cp assets/* docs/.",
+        "docs":        "typedoc --options typedoc.json lib/index.ts && touch docs/.nojekyll && cp assets/* docs/assets/.",
         "pre-deploy":  "npm run build && npm run test && npm run build-prod",
         "test":        "mocha build/test/run-all.js",
         "update-deps": "ncu -u && npm i"
