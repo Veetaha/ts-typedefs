@@ -69,6 +69,7 @@ export type t26 = I.AsyncFuncReturnType<I.AsyncFunc<[number, string], User3>>;
 export type t27 = I.AsyncFuncReturnType<typeof User3.getById>;
 
 export type t28 = I.UnpackTypePredicate<I.TypePredicate<User, User>>;
+export type t29 = I.Method<_User, 'meth3'>;
 
 
 

@@ -44,7 +44,7 @@ export interface User2 {
     name: {
         first: string;
         last:  string;
-    }
+    };
     parent: User;
 }
 

@@ -1,4 +1,4 @@
-import { UnpackPromise, Tuple } from './index';
+import { UnpackPromise, Tuple, Obj } from './index';
 
 /**
  * Defines a Function subtype with the given arguments, return value and `this` context.
@@ -51,3 +51,19 @@ export type TypePredicate<
     TTarget = unknown,
     TThis   = any
 > = (this: TThis, suspect: unknown) => suspect is TTarget;
+
+
+/**
+ * Defines a type that is the same as `TClass[TMethodName]`, but restricts `this`
+ * context to be of type `TClass`. This is usefull when you want to create proxies
+ * for some methods and have `this` type being automatically set to `TClass` in their bodies,
+ * so that compiler won't `this is implicit any` error and you don't have to type `this`
+ * manually.
+ * 
+ * @param TClass      Class instance type to take method from (also becomes `this` type).
+ * @param TMethodName Keyof `TClass` that defines the method name to take from `TClass`. * 
+ */
+export type Method<
+    TClass      extends Obj<Func, TMethodName>, 
+    TMethodName extends keyof TClass
+> = (this: TClass, ...args: Parameters<TClass[TMethodName]>) => ReturnType<TClass[TMethodName]>;
