@@ -72,8 +72,9 @@ export type t28 = I.UnpackTypePredicate<I.TypePredicate<User, User>>;
 export type t29 = I.Method<_User, 'meth3'>;
 
 
-
-
+export function takeClass<TClass extends I.Class<any>>(TargetClass: TClass) {
+    return class extends TargetClass { };
+}
 
 
 
