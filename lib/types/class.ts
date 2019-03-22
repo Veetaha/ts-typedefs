@@ -6,10 +6,8 @@
 export interface Class<
     TInstance = unknown,
     TArgs extends any[] = any
-> 
-extends Function {
-    // Note: callable interface type seems better than intersecting with `Function`
-    // tslint:disable-next-line: callable-types
+> {
+    prototype: TInstance;
     new (...args: TArgs): TInstance;
 }
 

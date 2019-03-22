@@ -8,15 +8,11 @@ import { UnpackPromise, Tuple } from './index';
  * @param TThis   Type `this` function context.
  * 
  */
-export interface Func<
+export type Func<
     TArgs extends Tuple<any> = any,
     TRetval                  = unknown,
     TThis                    = any
-> extends Function {
-    // Note: see './class.ts/Class' note to learn about suppresion reasons
-    // tslint:disable-next-line: callable-types
-    (this: TThis, ...args: TArgs): TRetval;
-}
+> = (this: TThis, ...args: TArgs) => TRetval;
 
 /**
  * Defines an asyncronous function, which is typically marked with `async` modifier,
@@ -51,10 +47,7 @@ export type AsyncFuncReturnType<TAsyncFunc extends AsyncFunc> = (
  * @param TTarget Type that this predicate checks `suspect` to conform to.
  * @param TThis   Type of `this` context of the predicate.
  */
-export interface TypePredicate<
+export type TypePredicate<
     TTarget = unknown,
     TThis   = any
-> extends Function {
-    // tslint:disable-next-line: callable-types
-    (this: TThis, suspect: unknown): suspect is TTarget;
-}
+> = (this: TThis, suspect: unknown) => suspect is TTarget;
