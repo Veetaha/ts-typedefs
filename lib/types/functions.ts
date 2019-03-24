@@ -29,7 +29,6 @@ export type AsyncFunc<
     TThis                    = any
 > = Func<TArgs, Promise<TRet>, TThis>;
 
-
 /**
  * Defines the unpacked result type of the `Promise` returned by the specified `AsyncFunc`.
  * 
@@ -67,3 +66,14 @@ export type Method<
     TClass      extends Obj<Func, TMethodName>, 
     TMethodName extends keyof TClass
 > = (this: TClass, ...args: Parameters<TClass[TMethodName]>) => ReturnType<TClass[TMethodName]>;
+
+
+/**
+ * Defines `typeof this` that the given `TFunc` must be run with.
+ * 
+ * @param TFunc Function type to infer `this` context type from.
+ */
+export type FuncContext<
+    TFunc extends Func
+> = TFunc extends Func<any, any, infer TThis> ? TThis : never;
+

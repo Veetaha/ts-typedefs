@@ -68,16 +68,27 @@ export type t25 = I.Func<[boolean], number, User>;
 export type t26 = I.AsyncFuncReturnType<I.AsyncFunc<[number, string], User3>>;
 export type t27 = I.AsyncFuncReturnType<typeof User3.getById>;
 
-export type t28 = I.UnpackTypePredicate<I.TypePredicate<User, User>>;
+export type t28 = AssertExtends<
+    I.UnpackTypePredicate<I.TypePredicate<User>>,
+    User
+>;
 export type t29 = I.Method<_User, 'meth3'>;
+
+export type t30 = AssertExtends<
+    I.FuncContext<(this: number, arg: string) => void>, 
+    number
+>;
+export type t31 = I.FuncContext<(arg: string) => Promise<void>>;
+
+
+
+
+
 
 
 export function takeClass<TClass extends I.Class<any>>(TargetClass: TClass) {
     return class extends TargetClass { };
 }
-
-
-
 
 declare function decor0(): I.MethodDecorator;
 declare function decor1(): I.MethodDecorator<[boolean]>;
