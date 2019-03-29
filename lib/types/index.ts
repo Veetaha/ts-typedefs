@@ -11,6 +11,7 @@ export * from './partial-required';
 export * from './primitives';
 export * from './readonly-mutable';
 export * from './unpackings';
+export * from './tag';
 
 import * as Op from './type-operators';
 export { Op };

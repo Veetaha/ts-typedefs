@@ -1,6 +1,6 @@
 import * as Fs from 'fs';
 
-const totalCopies = 5;
+const totalCopies = 4;
 
 let code = 
 `import * as Op from '../type-operators';
