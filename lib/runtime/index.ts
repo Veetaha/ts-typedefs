@@ -4,6 +4,9 @@ export { Debug };
 /**
  * This is a noop function that is designed to preserve unit types.
  * 
+ * 
+ * @deprecated Use `value as const` syntax (since TypeScript 3.4.1) instead.
+ * 
  * @param value Value of unit type needed to be preserved.
  * 
  * @remarks

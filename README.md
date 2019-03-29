@@ -71,7 +71,6 @@ function someFn(userUpd: I.DeepPartial<UserData>, arg: I.MyCustomType) { /* ... 
     * [`PropertyDecorator<>`](#propertydecoratortproptype)
     * [`...`](https://veetaha.github.io/ts-typedefs/modules/_types_decorators_.html)
 * [Runtime](#runtime)
-    * [`literal()`](#literaltvalue-t-t)
     * [`reinterpret()`](#reinterprettvalue-any-t)
     * [`class Debug.UnreachableCodeError`](#class-debugunreachablecodeerror)
     * [`...`](https://veetaha.github.io/ts-typedefs/modules/_runtime_index_.html)
@@ -372,17 +371,6 @@ export class User {
 }
 ```
 ## Runtime
-
-
-### `literal<T>(value: T): T`
-This is a noop function that is designed to preserve unit types, it prevents literal types widening.
-```ts
-let foo = 'millisecond';
-foo = 'milisecond'; // this is OK, as `typeof foo` is `string`
-let bar = literal('millisecond');
-bar = 'milisecond'; // compiler error, as `typeof foo` is `'millisecond'`
-``` 
-
 
 ### `reinterpret<T>(value: any): T`
 
