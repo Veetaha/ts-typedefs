@@ -104,10 +104,10 @@ Defines constructor function type.
 ```ts
 interface User { /* ... */ }
 
-// Function & new (...args: any) => User
+// new (...args: any) => User
 type t0 = Class<User>;
 
-// Function & new (...args: [string, number]) => User
+// new (...args: [string, number]) => User
 type t1 = Class<User, [string, number]>;
 ```
 

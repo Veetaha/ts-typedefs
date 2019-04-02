@@ -46,8 +46,8 @@ type Eval_0<TOp extends Op.BoolOp, TParam> = (
     Impl.Equiv<Eval_1<TEquivOp1, TParam>, Eval_1<TEquivOp2, TParam>> :
 
     
-    TOp extends Op.Extends<infer TExtendee>       ? Impl.Extends<TParam, TExtendee>       :
-    TOp extends Op.UnionIncludes<infer THaystack> ? Impl.UnionIncludes<THaystack, TParam> :
+    TOp extends Op.Extends<infer TExtendee>     ? Impl.Extends<TParam, TExtendee>       :
+    TOp extends Op.UnionIncludes<infer TNeedle> ? Impl.UnionIncludes<TParam, TNeedle> :
 
     never
 );
@@ -82,8 +82,8 @@ type Eval_1<TOp extends Op.BoolOp, TParam> = (
     Impl.Equiv<Eval_2<TEquivOp1, TParam>, Eval_2<TEquivOp2, TParam>> :
 
     
-    TOp extends Op.Extends<infer TExtendee>       ? Impl.Extends<TParam, TExtendee>       :
-    TOp extends Op.UnionIncludes<infer THaystack> ? Impl.UnionIncludes<THaystack, TParam> :
+    TOp extends Op.Extends<infer TExtendee>     ? Impl.Extends<TParam, TExtendee>       :
+    TOp extends Op.UnionIncludes<infer TNeedle> ? Impl.UnionIncludes<TParam, TNeedle> :
 
     never
 );
@@ -118,8 +118,8 @@ type Eval_2<TOp extends Op.BoolOp, TParam> = (
     Impl.Equiv<Eval_3<TEquivOp1, TParam>, Eval_3<TEquivOp2, TParam>> :
 
     
-    TOp extends Op.Extends<infer TExtendee>       ? Impl.Extends<TParam, TExtendee>       :
-    TOp extends Op.UnionIncludes<infer THaystack> ? Impl.UnionIncludes<THaystack, TParam> :
+    TOp extends Op.Extends<infer TExtendee>     ? Impl.Extends<TParam, TExtendee>       :
+    TOp extends Op.UnionIncludes<infer TNeedle> ? Impl.UnionIncludes<TParam, TNeedle> :
 
     never
 );
@@ -154,8 +154,8 @@ type Eval_3<TOp extends Op.BoolOp, TParam> = (
     Impl.Equiv<Eval_4<TEquivOp1, TParam>, Eval_4<TEquivOp2, TParam>> :
 
     
-    TOp extends Op.Extends<infer TExtendee>       ? Impl.Extends<TParam, TExtendee>       :
-    TOp extends Op.UnionIncludes<infer THaystack> ? Impl.UnionIncludes<THaystack, TParam> :
+    TOp extends Op.Extends<infer TExtendee>     ? Impl.Extends<TParam, TExtendee>       :
+    TOp extends Op.UnionIncludes<infer TNeedle> ? Impl.UnionIncludes<TParam, TNeedle> :
 
     never
 );

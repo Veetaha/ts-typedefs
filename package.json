@@ -1,6 +1,6 @@
 {
     "name": "ts-typedefs",
-    "version": "2.0.1",
+    "version": "2.1.0",
     "description": "A handy collection of TypeScript plain and generic type definitions and interfaces.",
     "main": "build/lib/index.js",
     "types": "build/lib/index.d.ts",
@@ -30,9 +30,6 @@
     },
     "author": "Vitaliy Kryvenko",
     "license": "MIT",
-    "dependencies": {
-        "typescript": "^3.4.1"
-    },
     "devDependencies": {
         "@types/chai": "latest",
         "@types/mocha": "latest",
@@ -41,6 +38,11 @@
         "npm-check-updates": "^3.0.4",
         "ts-node": "^8.0.3",
         "tslint": "^5.13.1",
-        "typedoc": "^0.14.2"
-    }
+        "typedoc": "^0.14.2",
+        "typescript": "^3.4.1"
+    },
+    "peerDependencies": {
+        "typescript": ">=3.4.x"
+    },
+    "dependencies": {}
 }

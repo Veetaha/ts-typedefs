@@ -2,29 +2,6 @@ import * as Debug from './debug';
 export { Debug };
 
 /**
- * This is a noop function that is designed to preserve unit types.
- * 
- * 
- * @deprecated Use `value as const` syntax (since TypeScript 3.4.1) instead.
- * 
- * @param value Value of unit type needed to be preserved.
- * 
- * @remarks
- * This is a helper function that prevents literal types widening.
- * ```ts
- * import * as I from 'ts-typedefs';
- * 
- * let foo = 'millisecond';
- * foo = 'milisecond'; // this is OK, as `typeof foo` is `string`
- * let bar = I.literal('millisecond');
- * bar = 'milisecond'; // compiler error, as `typeof foo` is `'millisecond'`
- * ``` 
- */
-export function literal<T>(value: T) {
-    return value;
-}
-
-/**
  * C++ style operator, a syntactic sugar for writing casts like 
  * `value as any as T` when a simple `value as T` cast cannot be performed. 
  * Use it with caution! 

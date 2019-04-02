@@ -113,12 +113,17 @@ export type NotExtends<TExtendee = unknown> = Not<Extends<TExtendee>>;
 /**
  * Defines the logical operator to check that the given parameter extends `TExtendee`.
  */                   
-export interface UnionIncludes<TTarget = unknown> {
-    'ts-typedefs.Op.UnionIncludes': TTarget;
+export interface UnionIncludes<TNeedle = unknown> {
+    'ts-typedefs.Op.UnionIncludes': TNeedle;
 }
 
 /**
- * Shorthand for `Op.Not<Op.UnionIncludes<TExtendee>>`.
+ * @deprecated Use `Op.UnionExcludes<>` instead
+ * Shorthand for `Op.Not<Op.UnionIncludes<TNeedle>>`.
  */
-export type UnionNotIncludes<TTarget = unknown> = Not<UnionIncludes<TTarget>>;
+export type UnionNotIncludes<TNeedle = unknown> = UnionExcludes<TNeedle>;
 
+/**
+ * Shorthand for `Op.Not<Op.UnionIncludes<TNeedle>>`.
+ */
+export type UnionExcludes<TNeedle = unknown> = Not<UnionIncludes<TNeedle>>;

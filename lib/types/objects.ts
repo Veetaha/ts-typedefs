@@ -9,7 +9,7 @@ import { FilterProps, Op } from './index';
  */
 export type Obj<
     TValue = unknown, 
-    TKeys extends PropertyKey = any
+    TKeys extends PropertyKey = string | number
 > = Record<TKeys, TValue>;
 
 /**

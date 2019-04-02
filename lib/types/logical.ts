@@ -1,22 +1,30 @@
+import { UnpackArray } from "./index";
+
 /**
  * Defines `false` unit type if `T extends true`, otherwise `false`.
  * @param T Boolean type to get negation for.
  */
-export type Not<T extends boolean> = T extends true ? false : true;
+export type Not<T extends boolean> = If<(T), false, true>;
 
 /**
  * Expands to `TIfTrue` if `TCond extends true`, otherwise expands to `TElse`.
+ * If `TCond` is exactly of `boolean` type then expands to `TElse`.
+ * 
  * @param TCond    Boolean type that controlls which branch to expand to.
  * @param TIfTrue  True branch type.
  * @param TElse    False branch type.
  */
-export type If<TCond extends boolean, TIfTrue, TElse = never> = TCond extends true ? TIfTrue : TElse;
+export type If<
+    TCond extends boolean, 
+    TIfTrue, 
+    TElse = never
+> = Extends<TCond, true> extends false ? TElse : TIfTrue;
 
 
 /**
  * Defines `true` or `false` according to the definition of `xor` logical operator.
  */
-export type Xor  <T1 extends boolean, T2 extends boolean> = T1 extends T2 ? false : true;
+export type Xor<T1 extends boolean, T2 extends boolean> = T1 extends T2 ? false : true;
 /**
  * Defines `true` or `false` according to the definition of `xnor` logical operator.
  */
@@ -31,20 +39,20 @@ export type Nand<T extends boolean[]> = Not<And<T>>;
  * Defines `true` or `false` accroding to the definition of `nor` logical operator.
  * It gets applied to all the argumets in the given tuple type `T`.
  */
-export type Nor <T extends boolean[]> = Not<Or <T>>;
+export type Nor <T extends boolean[]> = Not<Or<T>>;
 /**
  * Defines `true` or `false` accroding to the definition of `and` logical operator.
  * It gets applied to all the argumets in the given tuple type `T`.
  */
-export type And<T extends boolean[]> = Not<UnionIncludes<T[number], false>>;
+export type And<T extends boolean[]> = Not<UnionIncludes<UnpackArray<T>, false>>;
 /**
  * Defines `true` or `false` according to the definition of `or` logical operator.
  * It gets applied to all the argumets in the given tuple type `T`.
  */
-export type Or<T extends boolean[]> = UnionIncludes<T[number], true>;
+export type Or<T extends boolean[]> = UnionIncludes<UnpackArray<T>, true>;
 
 /**
- * Defines `true` if `TExtender` is assignable to `TExtendee`, otherwise false.
+ * Defines `true` if `TExtender` is assignable to `TExtendee`, otherwise `false`.
  * @param TExtender Type to check for covariance     with `TExtendee`.
  * @param TExtendee Type to check for contravariance with `TExtender`.
  * 
@@ -53,17 +61,91 @@ export type Or<T extends boolean[]> = UnionIncludes<T[number], true>;
  * That's why union types with excess members that are not assignable to `TExtendee`
  * will evaluate to `false`.
  */
-export type Extends<TExtender, TExtendee> = (
-    false extends (TExtender extends TExtendee ? true : false) ? false : true
-);
+export type Extends<
+    TExtender, 
+    TExtendee
+// workaround untill this bug is resolved https://github.com/Microsoft/TypeScript/issues/30708
+> = false extends (TExtender extends TExtendee ? true : false) ? false : true;
+
+/**
+ * Shorthand for `Not<Extends<>>`.
+ */
+export type NotExtends<TExtender, TExtendee> = Not<Extends<TExtender, TExtendee>>;
 
 /**
  * Defines `true` if the given `TUnion` includes `TValue`.
+ * This type is opposite to `UnionExcludes<>`.
+ * 
  * @param TUnion Union type to search for `TValue` in.
  * @param TValue Type to match with `TUnion` members.
  */
-export type UnionIncludes<TUnion, TValue> = Extract<TUnion, TValue> extends never ? false : true;
+export type UnionIncludes<TUnion, TValue> = Extends<TValue, Extract<TUnion, TValue>>;
+
+/**
+ * Defines `false` if the given `TUnion` includes `TValue`. 
+ * This type is opposite to `UnionIncludes<>`.
+ * 
+ * @param TUnion Union type to search for `TValue` in.
+ * @param TValue Type to match with `TUnion` members.
+ */
+export type UnionExcludes<TUnion, TValue> = IsNever<Extract<TUnion, TValue>>;
 
 
+/**
+ * Defines true if `T1` is exactly `T2`, `false` otherwise.
+ * Even `unknown` and `any` expand to `false`. Only the same types expand to `true`.
+ * Beware that this type works badly with function types (support is planned).
+ * 
+ * @param T1 Type to strictly compare to `T2`.
+ * @param T2 Type to strictly compare to `T1`.
+ */
+export type AreSame<T1, T2> = (
+    If<(IsAny<T1>),       
+        IsAny<T2>,
+    If<(IsAny<T2>),
+        IsAny<T1>, // @todo: Add function type checks
+        And<[
+            UnionIncludes<keyof T1, keyof T2>,
+            UnionIncludes<keyof T2, keyof T1>,
+            Extends<T1, T2>, 
+            Extends<T2, T1> 
+        ]>
+    >>
+);
 
-export type IsNever<TSuspect> = TSuspect extends never ? true : false;
+
+/**
+ * Defines `false` if `TSuspect` is exactly of `unknown` type, `true` otherwise.
+ * @param TSuspect Target type to check.
+ */
+export type IsNotUnknown<TSuspect> = Not<IsUnknown<TSuspect>>;
+
+/**
+ * Defines `true` if `TSuspect` is exactly of `unknown` type, `false` otherwise.
+ * @param TSuspect Target type to check.
+ */
+export type IsUnknown<TSuspect> = And<[IsNotAny<TSuspect>, Extends<unknown, TSuspect>]>;
+
+/**
+ * Defines `false` if `TSuspect` is exactly of `any` type, `true` otherwise.
+ * @param TSuspect Target type to check. 
+ */
+export type IsNotAny<TSuspect> = Not<IsAny<TSuspect>>;
+
+/**
+ * Defines `true` if `TSuspect` is exactly of `any` type, `false` otherwise.
+ * @param TSuspect Target type to check.
+ */
+export type IsAny<TSuspect> = Extends<boolean, TSuspect extends never ? true : false>;
+
+/**
+ * Defines `false` if `TSuspect` is exactly of `never` type, `true` otherwise.
+ * @param TSuspect Target type to check.
+ */
+export type IsNotNever<TSuspect> = Not<IsNever<TSuspect>>;
+
+/**
+ * Defines `true` if `TSuspect` is exactly of `never` type, `false` otherwise.
+ * @param TSuspect Target type to check.
+ */
+export type IsNever<TSuspect> = Extends<TSuspect, never>;
