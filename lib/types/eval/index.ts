@@ -1,3 +1,4 @@
+// This file was generated, don't change it as your changes will be overwritten when generated once again.
 import * as Op from '../type-operators';
 import * as Impl from '../logical';
 

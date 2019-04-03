@@ -1,24 +1,36 @@
-import { UnpackArray } from "./index";
+import { UnpackArray, Func, AsyncFunc } from "./index";
 
 /**
- * Defines `false` unit type if `T extends true`, otherwise `false`.
- * @param T Boolean type to get negation for.
- */
-export type Not<T extends boolean> = If<(T), false, true>;
-
-/**
- * Expands to `TIfTrue` if `TCond extends true`, otherwise expands to `TElse`.
- * If `TCond` is exactly of `boolean` type then expands to `TElse`.
+ * Defines `false`      unit type if `T extends true`.
+ * Defines `true`       unit type if `T extends false`.
+ * Defines `TIfTIsBool` when `T` is exactly `boolean` type.
  * 
- * @param TCond    Boolean type that controlls which branch to expand to.
- * @param TIfTrue  True branch type.
- * @param TElse    False branch type.
+ * @param T          Boolean type to get negation for.
+ * @param TIfTIsBool Resulting type when `T` is exactly of `boolean` type.
+ */
+export type Not<T extends boolean, TIfTIsBool = never> = If<(T), false, true, TIfTIsBool>;
+
+/**
+ * Sequentially performs the following logic:
+ * Expands to `TIfTrue`       if `TCond extends true`.
+ * Expands to `TElse`         if `TCond extends false`.
+ * Expands to `TIfCondIsBool` if `TCond extends boolean`.
+ * 
+ * @param TCond         Boolean type that controlls which branch to expand to.
+ * @param TIfTrue       Defined type if `TCond extends true`   branch.
+ * @param TElse         Defined type if `TCond extends false`  branch.
+ * @param TIfCondIsBool Defined type if `TCond extends boolean`branch.
  */
 export type If<
     TCond extends boolean, 
     TIfTrue, 
-    TElse = never
-> = Extends<TCond, true> extends false ? TElse : TIfTrue;
+    TElse = never,
+    TIfCondIsBool = never
+> = (
+    Extends<TCond, true>  extends true ? TIfTrue :
+    Extends<TCond, false> extends true ? TElse   : 
+    TIfCondIsBool
+);
 
 
 /**
@@ -94,7 +106,8 @@ export type UnionExcludes<TUnion, TValue> = IsNever<Extract<TUnion, TValue>>;
 /**
  * Defines true if `T1` is exactly `T2`, `false` otherwise.
  * Even `unknown` and `any` expand to `false`. Only the same types expand to `true`.
- * Beware that this type works badly with function types (support is planned).
+ * Beware that this type works as vanilla `extends` clause with function types,
+ * so comparing functions is not that strict.
  * 
  * @param T1 Type to strictly compare to `T2`.
  * @param T2 Type to strictly compare to `T1`.
@@ -103,7 +116,7 @@ export type AreSame<T1, T2> = (
     If<(IsAny<T1>),       
         IsAny<T2>,
     If<(IsAny<T2>),
-        IsAny<T1>, // @todo: Add function type checks
+        IsAny<T1>,
         And<[
             UnionIncludes<keyof T1, keyof T2>,
             UnionIncludes<keyof T2, keyof T1>,
@@ -112,7 +125,6 @@ export type AreSame<T1, T2> = (
         ]>
     >>
 );
-
 
 /**
  * Defines `false` if `TSuspect` is exactly of `unknown` type, `true` otherwise.
@@ -149,3 +161,16 @@ export type IsNotNever<TSuspect> = Not<IsNever<TSuspect>>;
  * @param TSuspect Target type to check.
  */
 export type IsNever<TSuspect> = Extends<TSuspect, never>;
+
+
+/**
+ * Shorthand for `Extends<TSuspect, Func>`.
+ * @param TSuspect Target type to check.
+ */
+export type IsFunc<TSuspect> = Extends<TSuspect, Func>;
+
+/**
+ * Shorthand for `Extends<TSuspect, AsyncFunc>`.
+ * @param TSuspect Target type to check.
+ */
+export type IsAsyncFunc<TSuspect> = Extends<TSuspect, AsyncFunc>;

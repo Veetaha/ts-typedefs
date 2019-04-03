@@ -2,14 +2,7 @@
     "compilerOptions": {
         "rootDir": ".",
         "outDir": "build",
-        "baseUrl": ".",
-        "paths": {
-            "@models/*":  [ "models/*"    ],
-            "@modules/*": [ "modules/*"   ],
-            "@app/*":     [ "./*"         ],
-            "@common/*":  [ "../common/*" ]
-        },
-        "target":           "es2018",
+        "target":           "es2015",
         "lib":              ["esnext"],
         "module":           "commonjs",
         "moduleResolution": "node",

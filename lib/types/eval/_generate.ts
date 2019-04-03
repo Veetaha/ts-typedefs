@@ -3,7 +3,8 @@ import * as Fs from 'fs';
 const totalCopies = 4;
 
 let code = 
-`import * as Op from '../type-operators';
+`// This file was generated, don't change it as your changes will be overwritten when generated once again.
+import * as Op from '../type-operators';
 import * as Impl from '../logical';
 
 /**

@@ -1,3 +1,4 @@
+import './types';
 import * as Fs from 'fs';
 
 const exclude = [
@@ -5,7 +6,6 @@ const exclude = [
     /.*\.(ts|map)/,
 ];
 
-Fs.readdirSync(__dirname)
+Fs.readdirSync(`${__dirname}/runtime`)
     .filter (fileName => exclude.every(pattern => !pattern.test(fileName)))
-    .forEach(fileName => void require(`./${fileName}`));
-    
+    .forEach(fileName => void require(`./runtime/${fileName}`));
