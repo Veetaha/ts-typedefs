@@ -104,8 +104,8 @@ export type UnionExcludes<TUnion, TValue> = IsNever<Extract<TUnion, TValue>>;
 
 
 /**
- * Defines true if `T1` is exactly `T2`, `false` otherwise.
- * Even `unknown` and `any` expand to `false`. Only the same types expand to `true`.
+ * Defines `true` if `T1` is exactly `T2`, `false` otherwise.
+ * Even `AreSame<unknown, any>` expands to `false`. Only the same types expand to `true`.
  * Beware that this type works as vanilla `extends` clause with function types,
  * so comparing functions is not that strict.
  * 
