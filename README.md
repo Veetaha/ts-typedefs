@@ -38,12 +38,12 @@ you can define your additional custom definitions that will be merged with
 generic ones from `'ts-typedefs'`, and import them in your source files as `I` or `T`:
 
 ```ts
-// @modules/interfaces.ts 
+// @app/interfaces.ts 
 export * from 'ts-typedefs';
 export type MyCustomType = /* ... */
 
 // app.ts
-import * as I from '@modules/interfaces';
+import * as I from '@app/interfaces';
 class User { /* ... */ }
 type UserData = I.FilterProps<User, I.Op.Not<I.Op.Extends<I.Func>>>;
 
@@ -387,7 +387,7 @@ places in code and it may be easier to do a <kbd>Ctrl</kbd> + <kbd>F</kbd> searc
 interface User {
  // ...
 }
-type UserUpdate = DeepPartial<I.RemoveKeys<User, 'password'>>;
+type UserUpdate = DeepPartial<RemoveKeys<User, 'password'>>;
 
 const userUpd: UserUpdate = // ...
 
