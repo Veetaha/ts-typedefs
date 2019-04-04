@@ -1,4 +1,5 @@
-import { FilterProps, Op } from './index';
+import { UnionIncludes, If } from './index';
+
 
 /**
  * Defines an object with keys of type `TKey`, and all values of `TValue` type.
@@ -9,7 +10,7 @@ import { FilterProps, Op } from './index';
  */
 export type Obj<
     TValue = unknown, 
-    TKeys extends PropertyKey = string | number
+    TKeys extends PropertyKey = any
 > = Record<TKeys, TValue>;
 
 /**
@@ -30,7 +31,7 @@ export type ValueOf<TObj extends Obj> = TObj[keyof TObj];
  */
 export type ReadonlyObj<
     TValue = unknown, 
-    TKey extends string | number = string
+    TKey extends PropertyKey = any
 > = Readonly<Obj<TValue, TKey>>;
 
 /**
@@ -98,5 +99,12 @@ export type Merge<
  */
 export type MarkKeyOptionalIfUndefined<TObj extends Obj> = Merge<
     TObj, 
-    Partial<FilterProps<TObj, Op.UnionIncludes<undefined>>>
+    TakeUndefinedProps<TObj>
 >;
+
+// Optimization
+type TakeUndefinedProps<TObj extends Obj> = {
+    [TFilteredKey in ValueOf<{
+        [TKey in keyof TObj]: If<(UnionIncludes<TObj[TKey], undefined>), TKey, never>;
+    }>]?: TObj[TFilteredKey]
+};

@@ -1,5 +1,5 @@
-import { Merge, AreSame, Obj, RemoveKeys, ValueOf, MapValues } from "../../lib";
-import { MergeObj1, MergeObj2, AssertTrue, Obj4 } from "../helpers";
+import { Merge, AreSame, RemoveKeys, ValueOf, MapValues, MarkKeyOptionalIfUndefined } from "../../lib";
+import { MergeObj1, MergeObj2, AssertTrue, Obj4, Obj1 } from "../helpers";
 
 export namespace MergeTest {
 
@@ -11,33 +11,6 @@ export namespace MergeTest {
 
 }
 
-export namespace ObjTest {
-
-    export type t1   = Obj; 
-    export type _t1  = AssertTrue<AreSame<
-        t1,  
-        { [key: string]: unknown; }
-    >>;     
-
-    export type t2  = Obj<boolean>;    
-    export type _t2 = AssertTrue<AreSame<
-        t2, 
-        { [key: string]: boolean; }
-    >>;     
-
-    export type t3  = Obj<string, number>;     
-    export type _t3 = AssertTrue<AreSame<
-        t3, 
-        { [key: number]: string;  }
-    >>;
-
-    export type t4  = Obj<number, 'num1' | 'num2'>;
-    export type _t4 = AssertTrue<AreSame<
-        t4, 
-        { num1: number, num2: number; }
-    >>;
-
-}
 export namespace RemoveKeysTest {
 
     export type t1  = RemoveKeys<Obj4, 'str'>; 
@@ -85,6 +58,22 @@ export namespace MapValuesTest {
             str:      boolean;
             bool:     boolean;
         }
+    >>;
+
+}
+
+export namespace MarkKeyOptionalIfUndefinedTest {
+    
+    export type t1  = MarkKeyOptionalIfUndefined<Obj1>;
+    export type _t1 = AssertTrue<AreSame<
+        t1,
+        Merge<
+            Obj1, 
+            Partial<Pick<
+                Obj1, 
+                'undef'| 'undef_bool' | 'undef_null_num_str' | 'undef_num'
+            >>
+        >
     >>;
 
 }
