@@ -71,7 +71,7 @@ function someFn(userUpd: I.DeepPartial<UserData>, arg: I.MyCustomType) { /* ... 
     * [`PropertyDecorator<>`](#propertydecoratortproptype)
     * [`...`](https://veetaha.github.io/ts-typedefs/modules/_types_decorators_.html)
 * [Logical](#logical)
-    * [`If<>`](#iftiftrue-telse-tifcondisbool`)
+    * [`If<>`](#iftiftrue-telse-tifcondisbool)
     * [`Not<>`](#nott-tiftisbool)
     * [`And/Nand<>`](#andnandt)
     * [`Or/Nor<>`](#ornort)
