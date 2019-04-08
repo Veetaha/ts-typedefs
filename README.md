@@ -405,7 +405,7 @@ type t3 = If<(And<[NotExtends<22, number>, true, true]>),
         string
 >>; // string
 
-// You may use leading ampersand or pipe for separation branches:
+// You may use leading ampersand or pipe to separate branches
 type t4 = If<(true)
     | number, // you may use & instead of |
 
