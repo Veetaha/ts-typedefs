@@ -98,7 +98,7 @@ Let's see them in details.
 
 ## Objects
 
-### `Obj<TValues, TKeys>`
+### [`Obj<TValues, TKeys>`](#common-type-definitions "Go back to contents")
 
 Defines an object with keys of type `TKeys`, and all values of `TValue` type.
 ```ts
@@ -107,7 +107,7 @@ type t1 = Obj<boolean>;             // { [key: string]: boolean; }
 type t2 = Obj<string, number>;      // { [key: number]: string;  }
 type t3 = Obj<number, 'p1' | 'p2'>; // { p1: number, p2: number; }
 ```
-### `Class<TInstance, TArgs>`
+### [`Class<TInstance, TArgs>`](#common-type-definitions "Go back to contents")
 Defines constructor function type.
 
 ```ts
@@ -121,7 +121,7 @@ type t1 = Class<User, [string, number]>;
 ```
 
 
-### `ValueOf<TObj>`
+### [`ValueOf<TObj>`](#common-type-definitions "Go back to contents")
 
 Defines a union type of all the values stored in `TObj`.
 ```ts
@@ -137,7 +137,7 @@ type t0 = ValueOf<User>;
 type t1 = ValueOf<boolean[]>; 
 ```
 
-### `RemoveKeys<TSrcObj, TKeysUnion>`
+### [`RemoveKeys<TSrcObj, TKeysUnion>`](#common-type-definitions "Go back to contents")
 Defines the same object type as `TSrcObj`, but without `TKeysUnion` keys.
 ```ts 
 interface User {
@@ -159,7 +159,7 @@ type t0 = RemoveKeys<User, 'password'>;
 type t1 = RemoveKeys<User, 'password' | 'isDisabled' | 'login'>;
 ```
 
-### `FilterProps<TObj, TApproveCond>`
+### [`FilterProps<TObj, TApproveCond>`](#common-type-definitions "Go back to contents")
 Defines the same type as `TObj` but with particular properties filtered out according to `TApproveCond`. `TApproveCond` is a boolean operator tree structure that defines the criteria that the filtered values must match. All these operators are defined in `Op` namespace.
 
 ```ts
@@ -198,7 +198,7 @@ type t1 = FilterProps<
 >;
 ```
 Because of some TypeScript [limitations and bugs](https://stackoverflow.com/questions/55192212/typescript-circular-type-alias-produces-no-error-and-instead-widens-unit-types) `TApproveCond` tree must be not more than 5 levels deep (number of levels limitation may change, but it can only become greater).
-### `MapValues<TSrcObj, TMappedValue>`
+### [`MapValues<TSrcObj, TMappedValue>`](#common-type-definitions "Go back to contents")
 Defines the same object type as `TSrcObj`, but all values of `TMappedValue` type.
 ```ts
 interface User {
@@ -217,7 +217,7 @@ interface User {
 type t0 = MapValues<User, boolean>;
 ```
 
-### `Merge<TObj1, TObj2>`
+### [`Merge<TObj1, TObj2>`](#common-type-definitions "Go back to contents")
 Merge objects `TObj1` and `TObj2`.
 Properties types from `TObj2` override the ones defined on `TObj1`.
 This type is analogous to the return type of `Object.assign()`
@@ -256,7 +256,7 @@ type t0 = Merge<O1, O2>;
 type t1 = Merge<O2, O1>;
 ```
 
-### `DeepPartial<TObj>`
+### [`DeepPartial<TObj>`](#common-type-definitions "Go back to contents")
 Defines the same type as `TObj` but all properties are made recursively `Partial<>`.
 
 ```ts
@@ -284,7 +284,7 @@ type t0 = DeepPartial<User>;
 
 ## Functions
 
-### `[Async]Func<TArgs, TRetval, TThis>`
+### [`[Async]Func<TArgs, TRetval, TThis>`](#common-type-definitions "Go back to contents")
 Defines a Function subtype with the given arguments, return type and `this` context. If it is `AsyncFunc<>` `TRetval` is packed into `Promise<TRetval>`
 
 ```ts
@@ -306,7 +306,7 @@ type t3 = Func<[boolean], number, User>;
 type t4 = AsyncFunc<[string], User>
 ```
 
-### `AsyncFuncReturnType<TAsyncFunc>`
+### [`AsyncFuncReturnType<TAsyncFunc>`](#common-type-definitions "Go back to contents")
 Defines the unpacked result type of the `Promise` returned by the specified `AsyncFunc`.
 
 ```ts
@@ -325,7 +325,7 @@ type t1 = AsyncFuncReturnType<typeof User.getById>
 
 ## Decorators
 
-### `MethodDecorator<TArgs, TRetval>`
+### [`MethodDecorator<TArgs, TRetval>`](#common-type-definitions "Go back to contents")
 Defines a static or instance method decorator function type. `TArgs` tuple type limits the arguments' type decorated method accepts, `TRetval` limits the return type of the decorated method.
 
 ```ts
@@ -360,7 +360,7 @@ class User {
 }
 ```
 
-### `PropertyDecorator<TPropType>`
+### [`PropertyDecorator<TPropType>`](#common-type-definitions "Go back to contents")
 Defines a static or instance property decorator function type.
 
 ```ts
@@ -381,7 +381,7 @@ export class User {
 ```
 ## Logical
 
-### `If<TIfTrue, TElse, TIfCondIsBool>`
+### [`If<TIfTrue, TElse, TIfCondIsBool>`](#common-type-definitions "Go back to contents")
 
 Sequentially performs the following logic:
 
@@ -413,7 +413,7 @@ type t4 = If<(true)
 >; // number
 ```
 
-### `Not<T, TIfTIsBool>`
+### [`Not<T, TIfTIsBool>`](#common-type-definitions "Go back to contents")
 
 Defines `false`      unit type if `T extends true`.
 Defines `true`       unit type if `T extends false`.
@@ -425,7 +425,7 @@ type t1 = Not<false>;           // true
 type t2 = Not<boolean, number>; // number
 type t3 = Not<Not<true>>;       // true
 ```
-### `And/Nand<T>`
+### [`And/Nand<T>`](#common-type-definitions "Go back to contents")
 
 Defines `true` or `false` accroding to the definition of `and` logical operator.
 It gets applied to all the argumets in the given tuple type `T`.
@@ -441,7 +441,7 @@ type t4 = And<[boolean, true]>;    // false
 type t5 = Nand<[true, true]>;      // false
 ```
 
-### `Or/Nor<T>`
+### [`Or/Nor<T>`](#common-type-definitions "Go back to contents")
 
 Defines `true` or `false` accroding to the definition of `or` logical operator.
 It gets applied to all the argumets in the given tuple type `T`.
@@ -457,7 +457,7 @@ type t4 = Or<[boolean, false]>;      // true
 type t5 = Nor<[true, true]>;         // false
 ```
 
-### `[Not]Extends<TExtender, TExtendee>`
+### [`[Not]Extends<TExtender, TExtendee>`](#common-type-definitions "Go back to contents")
 
 Defines `true` if `TExtender` is assignable to `TExtendee`, otherwise `false`.
 
@@ -473,12 +473,13 @@ type t2 = Extends<never, never>;          // true
 type t3 = NotExtends<22, number>;         // false
 ```
 
-### AreSame<T1, T2>
+### [`AreSame<T1, T2>`](#common-type-definitions "Go back to contents")
 
 Defines `true` if `T1` is exactly `T2`, `false` otherwise.
 Even `AreSame<unknown, any>` expands to `false`. Only the same types expand to `true`. 
 
 It doesn't tolerate co/bi/contravaraince, only the types of exactly the same shapes (excluding function types limitation) will cause to return `true`.
+
 Beware that this type works as vanilla `extends` clause with function types,
 so comparing functions is not that strict.
 
@@ -494,7 +495,7 @@ type t9 = AreSame<[number], [number]>;  // true
 type t10 = AreSame<[number, string], [number]>; // false
 ```
 
-### `Is[Not]Any<TSuspect>`
+### [`Is[Not]Any<TSuspect>`](#common-type-definitions "Go back to contents")
 
 Defines `true[false]` if `TSuspect` is exactly of `any` type, `false[true]` otherwise.
 
@@ -509,7 +510,7 @@ type t5 = IsNotAny<unknown>; // true
 // ...
 ```
 
-### `Is[Not]Unknown<TSuspect>`
+### [`Is[Not]Unknown<TSuspect>`](#common-type-definitions "Go back to contents")
 
 Defines `true[false]` if `TSuspect` is exactly of `unknown` type, `false[true]` otherwise.
 
@@ -523,7 +524,7 @@ type t2 = IsNotUnknown<never>; // true
 
 ## Runtime
 
-### `reinterpret<T>(value: any): T`
+### [`reinterpret<T>(value: any): T`](#common-type-definitions "Go back to contents")
 
 C++ style operator, a syntactic sugar for writing casts like 
 `value as any as T` when a simple `value as T` cast cannot be performed. 
@@ -552,7 +553,7 @@ let user = reinterpret<User>(userUpd);
 // `typeof user` is `User` 
 ```
  
-### `class Debug.UnreachableCodeError`
+### [`class Debug.UnreachableCodeError`](#common-type-definitions "Go back to contents")
 Class used to perform `never` type value checks in unreachable code.
 
 
@@ -586,7 +587,7 @@ switch (suspect) {
 
 ## Misc
 
-### `Tag<TTarget, TTagName>`
+### [`Tag<TTarget, TTagName>`](#common-type-definitions "Go back to contents")
 Defines nominal type by adding a property with `TTagName` value to `TTarget`.
 `TTagName` must be unique across your application, treat it like the name of
 your nominal type.
@@ -619,7 +620,7 @@ parseCsv('\nbla bla');      // compile error
 parseCsv('a,b,c\nd,e,f' as CsvString);   // fine
 ```
 
-### `Extends<TExtender, TExtendee>`
+### [`Extends<TExtender, TExtendee>`](#common-type-definitions "Go back to contents")
 Defines `true` if `TExtender` is assignable to `TExtendee`, otherwise false.
 Beware that this type is not just `TExtender extends TExtendee ? true : false`. 
 
@@ -637,7 +638,7 @@ type t1 = Extends<Animal, Human>; // false
 type t2 = Extends<string | null, string>; // false
 ```
 
-### `UnionToIntersection<TUnion>`
+### [`UnionToIntersection<TUnion>`](#common-type-definitions "Go back to contents")
 
 Defines an intersection type of all union's items.
 
@@ -650,7 +651,7 @@ you get the following result:
 type t0 = UnionToIntersection<string | number | number[]>;
 ```
 
-### `UnpackPromise<TPromise>` 
+### [`UnpackPromise<TPromise>`](#common-type-definitions "Go back to contents") 
 Defines the type of value, which is passed to `TPromise.then(cb)` `cb` callback.
 
 ```ts
@@ -668,7 +669,7 @@ type t3 = UnpackPromise<UnpackPromise<
 >>;
 ```
 
-### `[Deep]Nullable<T>`
+### [`[Deep]Nullable<T>`](#common-type-definitions "Go back to contents")
 `Nullable<T>` defines type `T` that may also be `null` or `undefined`:
 ```ts
 export type Nullable<T> = T | undefined | null;
@@ -697,7 +698,7 @@ Nullable<{
 type t0 = DeepNullable<User>;
 ```
 
-### `Primitive`
+### [`Primitive`](#common-type-definitions "Go back to contents")
 Defines a union of all possible value types defined in the language,
 `null` and `undefined` are considered to be primitive types.
 
@@ -714,7 +715,7 @@ export type Primitive = (
 ```
 
 
-### `TypeName`
+### [`TypeName`](#common-type-definitions "Go back to contents")
 
 Defines a union of all possible strings retuned by applying `typeof` operator.
 
