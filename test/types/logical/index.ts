@@ -8,6 +8,11 @@ export namespace ExtendsTest {
     export type t1  = Extends<string | null, string>;
     export type _t1 = AssertFalse<t1>;
 
+    export type t2  = Extends<true, boolean>;
+    export type _t2 = AssertTrue<t2>;
+
+    export type t3  = Extends<never, never>;
+    export type _t3 = AssertTrue<t3>;
 }
 
 export namespace IsUnknownTest {

@@ -70,6 +70,15 @@ function someFn(userUpd: I.DeepPartial<UserData>, arg: I.MyCustomType) { /* ... 
     * [`MethodDecorator<>`](#methoddecoratortargs-tretval)
     * [`PropertyDecorator<>`](#propertydecoratortproptype)
     * [`...`](https://veetaha.github.io/ts-typedefs/modules/_types_decorators_.html)
+* [Logical](#logical)
+    * [`If<>`](#iftiftrue-telse-tifcondisbool`)
+    * [`Not<>`](#nott-tiftisbool)
+    * [`And/Nand<>`](#andnandt)
+    * [`Or/Nor<>`](#ornort)
+    * [`[Not]Extends<>`](#notextendstextender-textendee)
+    * [`AreSame<>`](#aresamet1-t2)
+    * [`Is[Not]Any<>`](#isnotanytsuspect)
+    * [`Is[Not]Unknown<>`](#isnotunknowntsuspect)
 * [Runtime](#runtime)
     * [`reinterpret()`](#reinterprettvalue-any-t)
     * [`class Debug.UnreachableCodeError`](#class-debugunreachablecodeerror)
@@ -370,6 +379,148 @@ export class User {
     prop1!: boolean;
 }
 ```
+## Logical
+
+### `If<TIfTrue, TElse, TIfCondIsBool>`
+
+Sequentially performs the following logic:
+
+Expands to `TIfTrue`       if `TCond extends true`.
+
+Expands to `TElse`         if `TCond extends false`.
+
+Expands to `TIfCondIsBool` if `TCond extends boolean`.
+
+*As a convention, enclose `TIfTrue` argument in parens.*
+
+```ts
+type t0 = If<(true), number, string>;            // number
+type t1 = If<(false), number, string>;           // number
+type t2 = If<(boolean), number, string, bigint>; // bigint
+
+type t3 = If<(And<[NotExtends<22, number>, true, true]>),
+    string,
+    If<(false),  // nested condition
+        number, 
+        string
+>>; // string
+
+// You may use leading ampersand or pipe for separation branches:
+type t4 = If<(true)
+    | number, // you may use & instead of |
+
+    | string
+>; // number
+```
+
+### `Not<T, TIfTIsBool>`
+
+Defines `false`      unit type if `T extends true`.
+Defines `true`       unit type if `T extends false`.
+Defines `TIfTIsBool` when `T` is exactly `boolean` type.
+
+```ts
+type t0 = Not<true>;            // false
+type t1 = Not<false>;           // true  
+type t2 = Not<boolean, number>; // number
+type t3 = Not<Not<true>>;       // true
+```
+### `And/Nand<T>`
+
+Defines `true` or `false` accroding to the definition of `and` logical operator.
+It gets applied to all the argumets in the given tuple type `T`.
+
+```ts
+type t0 = And<[true, true, true]>; // true
+type t1 = And<true[]>;             // true
+type t2 = And<[true, false, true]> // false
+
+type t3 = And<boolean[]>;          // false
+type t4 = And<[boolean, true]>;    // false
+
+type t5 = Nand<[true, true]>;      // false
+```
+
+### `Or/Nor<T>`
+
+Defines `true` or `false` accroding to the definition of `or` logical operator.
+It gets applied to all the argumets in the given tuple type `T`.
+
+```ts
+type t0 = Or<[false, false, false]>; // false
+type t1 = Or<false[]>;               // false
+type t2 = Or<[false, true, false]>   // true
+
+type t3 = Or<boolean[]>;             // true
+type t4 = Or<[boolean, false]>;      // true
+
+type t5 = Nor<[true, true]>;         // false
+```
+
+### `[Not]Extends<TExtender, TExtendee>`
+
+Defines `true` if `TExtender` is assignable to `TExtendee`, otherwise `false`.
+
+It verifies that you may physically assign a value of type `TExtender` to `TExtendee`.
+That's why union types with excess members that are not assignable to `TExtendee`
+will evaluate to `false`.
+
+```ts
+type t0 = Extends<string | null, string>; // false
+type t1 = Extends<true, boolean>;         // true
+type t2 = Extends<never, never>;          // true
+
+type t3 = NotExtends<22, number>;         // false
+```
+
+### AreSame<T1, T2>
+
+Defines `true` if `T1` is exactly `T2`, `false` otherwise.
+Even `AreSame<unknown, any>` expands to `false`. Only the same types expand to `true`. 
+
+It doesn't tolerate co/bi/contravaraince, only the types of exactly the same shapes (excluding function types limitation) will cause to return `true`.
+Beware that this type works as vanilla `extends` clause with function types,
+so comparing functions is not that strict.
+
+```ts
+type t0 = AreSame<{}, { num: number }>; // false
+type t1 = AreSame<
+    { num: number, str: string}, 
+    { num: number, str: string}
+>; // true
+type t2 = AreSame<any, unknown>;        // false   
+type t8 = AreSame<Func, Func>;          // true
+type t9 = AreSame<[number], [number]>;  // true
+type t10 = AreSame<[number, string], [number]>; // false
+```
+
+### `Is[Not]Any<TSuspect>`
+
+Defines `true[false]` if `TSuspect` is exactly of `any` type, `false[true]` otherwise.
+
+```ts
+type t0 = IsAny<any>;        // true
+type t1 = IsAny<unknown>;    // false
+type t2 = IsAny<never>;      // false
+type t3 = IsAny<string>;     // false
+
+type t4 = IsNotAny<any>;     // false
+type t5 = IsNotAny<unknown>; // true
+// ...
+```
+
+### `Is[Not]Unknown<TSuspect>`
+
+Defines `true[false]` if `TSuspect` is exactly of `unknown` type, `false[true]` otherwise.
+
+```ts
+type t0 = IsUnknown<unknown>;  // true
+type t1 = IsUnknown<boolean>;  // false
+
+type t2 = IsNotUnknown<never>; // true
+// ...
+```
+
 ## Runtime
 
 ### `reinterpret<T>(value: any): T`
