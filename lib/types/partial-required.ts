@@ -1,4 +1,4 @@
-import { Obj } from './index';
+import { Obj, Merge } from './index';
 
 /** 
  * Defines the same type as `TObj` but all properties are made recursively `Partial<>`.
@@ -20,6 +20,27 @@ export type DeepPartial<TObj extends Obj> = {
  */
 export type DeepRequired<TObj extends Obj> = { 
     [TKey in keyof TObj]-?: TObj[TKey] extends infer TVal 
-        ? (TVal extends TObj ? DeepRequired<TVal> : TVal)
+        ? (TVal extends Obj ? DeepRequired<TVal> : TVal)
         : never;
 };
+
+/**
+ * Defines the same type as `TObj` but with `TKeys` made optional.
+ * @param TObj  Object type to make `TKeys` optional in.
+ * @param TKeys Union type of keys that will be defined as optional in the resulting type.
+ */
+export type Partial<
+    TObj extends Obj, 
+    TKeys extends keyof TObj = keyof TObj
+> = Merge<TObj, { [TKey in TKeys]+?: TObj[TKey]; }>;
+
+
+/**
+ * Defines the same type as `TObj` but with `TKeys` made required.
+ * @param TObj  Object type to make `TKeys` required in.
+ * @param TKeys Union type of keys that will be defined as required in the resulting type.
+ */
+export type Required<
+    TObj extends Obj, 
+    TKeys extends keyof TObj = keyof TObj
+> = Merge<TObj, { [TKey in TKeys]-?: TObj[TKey]; }>;

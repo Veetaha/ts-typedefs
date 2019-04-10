@@ -1,4 +1,4 @@
-import { DeepPartial, AreSame, DeepRequired } from "../../lib";
+import { DeepPartial, AreSame, DeepRequired, Partial } from "../../lib";
 import { Obj1, AssertTrue, Obj2, NestedObj, Obj4 } from "../helpers";
 
 export namespace DeepPartialTest {
@@ -26,4 +26,16 @@ export namespace DeepRequiredTest {
         DeepRequired<Obj2>
     >>;
 
+}
+
+
+export namespace PatialTest {
+
+    export type t1 = Partial<Obj1, 'num' | 'bool'>;
+    export type _t1 = AssertTrue<AreSame<
+        t1['num'], number | undefined
+    >>;
+    export type __t1 = AssertTrue<AreSame<
+        t1['bool'], boolean | undefined
+    >>;
 }

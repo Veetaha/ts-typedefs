@@ -1,4 +1,4 @@
-import { Obj } from './index';
+import { Obj, Merge } from './index';
 
 /**
  * Defines type `T` that may also be `null` or `undefined`.
@@ -26,4 +26,15 @@ export type DeepNonNullable<TObj extends Obj> = {
         : never;
 };
 
-
+/**
+ * Defines the same type as `TObj` but with `TKeys` made nullable (and optional).
+ * @param TObj  Object type to make `TKeys` nullable in.
+ * @param TKeys Union type of keys that will be defined as nullable in the resulting type.
+ */
+export type NullableProps<
+    TObj extends Obj,
+    TKeys extends keyof TObj = keyof TObj
+> = Merge<
+    TObj, 
+    { [TKey in TKeys]?: Nullable<TObj[TKey]>; }
+>;

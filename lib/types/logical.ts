@@ -174,3 +174,32 @@ export type IsFunc<TSuspect> = Extends<TSuspect, Func>;
  * @param TSuspect Target type to check.
  */
 export type IsAsyncFunc<TSuspect> = Extends<TSuspect, AsyncFunc>;
+
+/**
+ * Defines `true` if `TSuspect` contains both `undefined` and `null` types, `false` otherwise.
+ * As a special case, defines `true` when `TSuspect` is `unknown` or `any`,
+ * `false` if  `TSuspect` is `never`.
+ * 
+ * @param TSuspect Target type to check
+ */
+export type IsNullable<TSuspect> = Or<[
+    IsUnknown<TSuspect>, UnionIncludes<TSuspect, null | undefined>
+]>;
+
+/**
+ * Defines `true` if `TSuspect` contains `null`, `false` otherwise.
+ * As a special case, defines `true` when `TSuspect` is `unknown` or `any`,
+ * `false` if  `TSuspect` is `never`.
+ */
+export type CanBeNull<TSuspect> = Or<[
+    IsUnknown<TSuspect>, UnionIncludes<TSuspect, null>
+]>;
+
+/**
+ * Defines `true` if `TSuspect` contains `undefined`, `false` otherwise.
+ * As a special case, defines `true` when `TSuspect` is `unknown` or `any`,
+ * `false` if  `TSuspect` is `never`.
+ */
+export type CanBeUndef<TSuspect> = Or<[
+    IsUnknown<TSuspect>, UnionIncludes<TSuspect, undefined>
+]>;

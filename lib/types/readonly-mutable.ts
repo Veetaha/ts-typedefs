@@ -1,12 +1,17 @@
-import { Obj } from './index';
+import { Obj, Merge } from './index';
 
 /**
- * Defines the same type as `TObj` but with `readonly` modifier removed from its properties.
- * @param TObj Target object type to make its properties mutable.
+ * Defines the same type as `TObj` but with `readonly` modifier removed from its `TKeys`.
+ * @param TObj  Object type to make `TKeys` mutable in.
+ * @param TKeys Union type of keys that will be defined as mutable in the resulting type.
  */
-export type Mutable<TObj extends Obj> = {
-    -readonly [TKey in keyof TObj]: TObj[TKey];
-};
+export type Mutable<
+    TObj extends Obj, 
+    TKeys extends keyof TObj = keyof TObj
+> = Merge<
+    TObj, 
+    { -readonly [TKey in TKeys]: TObj[TKey]; }
+>;
 
 /**
  * Defines the same type as `TObj` but with `readonly` modifier removed from its properties recursively.
@@ -27,3 +32,16 @@ export type DeepReadonly<TObj extends Obj> = {
         ? (TVal extends Obj ? DeepReadonly<TVal> : TVal)
         : never;
 };
+
+/**
+ * Defines the same type as `TObj` but with `TKeys` made readonly.
+ * @param TObj  Object type to make `TKeys` readonly in.
+ * @param TKeys Union type of keys that will be defined as readonly in the resulting type.
+ */
+export type Readonly<
+    TObj extends Obj, 
+    TKeys extends keyof TObj
+> = Merge<
+    TObj, 
+    { +readonly [TKey in TKeys]: TObj[TKey]; }
+>;

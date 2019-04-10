@@ -1,4 +1,4 @@
-import { Extends, IsUnknown, IsAny, IsNever, And, Or, Not } from "../../../lib";
+import { Extends, IsUnknown, IsAny, IsNever, And, Or, Not, IsNullable } from "../../../lib";
 import { AssertFalse, AssertTrue, AssertNever } from "../../helpers";
 
 export * from './are-same';
@@ -133,4 +133,31 @@ export namespace NotTest {
     export type t4  = Not<Not<Not<true>>>;
     export type _t4 = AssertFalse<t4>;
 
+}
+
+export namespace IsNullableTest {
+
+    export type t1  = IsNullable<string>;
+    export type _t1 = AssertFalse<t1>;
+
+    export type t2  = IsNullable<any>;
+    export type _t2 = AssertTrue<t2>;
+
+    export type t3  = IsNullable<unknown>;
+    export type _t3 = AssertTrue<t3>;
+
+    export type t4  = IsNullable<never>;
+    export type _t4 = AssertFalse<t4>;
+
+    export type t5  = IsNullable<null>;
+    export type _t5 = AssertFalse<t5>;
+
+    export type t6  = IsNullable<undefined>;
+    export type _t6 = AssertFalse<t6>;
+
+    export type t7  = IsNullable<null | undefined>;
+    export type _t7 = AssertTrue<t7>;
+
+    export type t8  = IsNullable<string | null | undefined>;
+    export type _t8 = AssertTrue<t8>;
 }

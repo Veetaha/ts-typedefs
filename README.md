@@ -50,7 +50,7 @@ type UserData = I.FilterProps<User, I.Op.NotExtends<I.Func>>;
 function someFn(userUpd: I.DeepPartial<UserData>, arg: I.MyCustomType) { /* ... */ }
 ```
 
-## Provided type definitions and runtime units:
+## Provided type definitions and runtime units
 
 * [Objects](#objects)
     * [`Obj<>`](#objtvalues-tkeys)
@@ -60,7 +60,8 @@ function someFn(userUpd: I.DeepPartial<UserData>, arg: I.MyCustomType) { /* ... 
     * [`FilterProps<>`](#filterpropstobj-tapprovecond)
     * [`MapValues<>`](#mapvaluestsrcobj-tmappedvalue)
     * [`Merge<>`](#mergetobj1-tobj2)
-    * [`DeepPartial<>`](#deeppartialtobj)
+    * [`[Deep]Partial/Required<>`](#deeppartialrequiredtobj)
+    * [`[Deep]Readonly/Mutable<>`](#deepreadonlymutabletobj)
     * [`...`](https://veetaha.github.io/ts-typedefs/modules/_types_objects_.html)
 * [Functions](#functions)
     * [`[Async]Func<>`](#asyncfunctargs-tretval-tthis)
@@ -256,31 +257,95 @@ type t0 = Merge<O1, O2>;
 type t1 = Merge<O2, O1>;
 ```
 
-### [`DeepPartial<TObj>`](#provided-type-definitions-and-runtime-units "Go back to contents")
-Defines the same type as `TObj` but all properties are made recursively `Partial<>`.
+### [`[Deep]Partial/Required<TObj>`](#provided-type-definitions-and-runtime-units "Go back to contents")
+
+`Partial/Required<TObj, TKeys = keyof TObj>` defines the same type as `TObj` but 
+with all `TKeys` made optional/required.
+
+`DeepPartial/Required<>` defines the same type as `TObj` but with all properties made recursively `Partial/Required<>`.
+
+This two types are actually exactly opposite to each other.
 
 ```ts
 interface User {
     id: number;
     name: {
         first: string;
-        last:  string;
     }
-    parent: User;
 }
+
+/*
+{
+    id?:   undefined | number;
+    name?: undefined | {
+        first: string;
+    }
+}
+*/
+type PartUser = Partial<User, /* TKeys = keyof User */>;
 
 /*
 {
     id?:     number | undefined;
     name?:   undefined | {
         first?: string | undefined;
-        last?:  string | undefined;
     };
-    parent?: DeepPartial<User> | undefined;
 }
 */
-type t0 = DeepPartial<User>;
+type DeepPartUser = DeepPartial<User>;
+
+type RequUser     = Required<User, /* TKeys = keyof User */>; // User
+type DeepRequUser = DeepRequired<DeepPartUser>; // User
 ```
+
+### [`[Deep]Readonly/Mutable<TObj>`](#provided-type-definitions-and-runtime-units "Go back to contents")
+
+`Readonly/Mutable<TObj, TKeys = keyof TObj>` defines the same type as `TObj` but 
+with all `TKeys` made readonly/mutable.
+
+`DeepReadonly/Mutable<>` defines the same type as `TObj` but with all properties made recursively `Readonly/Mutable<>`.
+
+This two types are actually exactly opposite to each other.
+
+```ts
+interface User {
+    id: number;
+    name: {
+        first: string;
+    }
+}
+
+/*
+{
+    readonly id: number;
+    readonly name: {
+        first: string;
+    }
+}
+*/
+type RoUser = Readonly<User, /* TKeys = keyof User */>;
+
+/*
+{
+    readonly id: number;
+    readonly name: {
+        readonly first: string;
+    };
+}
+*/
+type DeepRoUser = DeepReadonly<User>;
+
+type MutUser     = Mutable<RoUser, /* TKeys = keyof User */>; // User
+type DeepMutUser = DeepMutable<DeepRoUser>; // User
+```
+
+`DeepReadonly<>` is quite handy when you define deep readonly multidimensional arrays.
+
+```ts
+type t0 = DeepReadonly<number[][][]>;
+// readonly (readonly (readonly number[])[])[]
+```
+
 
 ## Functions
 
