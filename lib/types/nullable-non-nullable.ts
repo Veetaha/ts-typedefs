@@ -1,4 +1,5 @@
 import { Obj, Merge } from './index';
+import { PickAsNullableProps } from './pick';
 
 /**
  * Defines type `T` that may also be `null` or `undefined`.
@@ -34,4 +35,4 @@ export type DeepNonNullable<TObj extends Obj> = {
 export type NullableProps<
     TObj extends Obj,
     TKeys extends keyof TObj = keyof TObj
-> = Merge<TObj, { [TKey in TKeys]?: Nullable<TObj[TKey]>; }>;
+> = Merge<TObj, PickAsNullableProps<TObj, TKeys>>;

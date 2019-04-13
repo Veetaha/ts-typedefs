@@ -1,4 +1,5 @@
 import { Obj, Merge } from './index';
+import { PickAsOptional, PickAsRequired } from './pick';
 
 /** 
  * Defines the same type as `TObj` but all properties are made recursively `Partial<>`.
@@ -32,7 +33,7 @@ export type DeepRequired<TObj extends Obj> = {
 export type Partial<
     TObj extends Obj, 
     TKeys extends keyof TObj = keyof TObj
-> = Merge<TObj, { [TKey in TKeys]+?: TObj[TKey]; }>;
+> = Merge<TObj, PickAsOptional<TObj, TKeys>>;
 
 
 /**
@@ -43,4 +44,4 @@ export type Partial<
 export type Required<
     TObj extends Obj, 
     TKeys extends keyof TObj = keyof TObj
-> = Merge<TObj, { [TKey in TKeys]-?: TObj[TKey]; }>;
+> = Merge<TObj, PickAsRequired<TObj, TKeys>>;

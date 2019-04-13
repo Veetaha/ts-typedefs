@@ -1,4 +1,5 @@
 import { Obj, Merge } from './index';
+import { PickAsReadonly, PickAsMutable } from './pick';
 
 /**
  * Defines the same type as `TObj` but with `readonly` modifier removed from its `TKeys`.
@@ -8,10 +9,7 @@ import { Obj, Merge } from './index';
 export type Mutable<
     TObj extends Obj, 
     TKeys extends keyof TObj = keyof TObj
-> = Merge<
-    TObj, 
-    { -readonly [TKey in TKeys]: TObj[TKey]; }
->;
+> = Merge<TObj, PickAsMutable<TObj, TKeys>>;
 
 /**
  * Defines the same type as `TObj` but with `readonly` modifier removed from its properties recursively.
@@ -41,7 +39,4 @@ export type DeepReadonly<TObj extends Obj> = {
 export type Readonly<
     TObj extends Obj, 
     TKeys extends keyof TObj
-> = Merge<
-    TObj, 
-    { +readonly [TKey in TKeys]: TObj[TKey]; }
->;
+> = Merge<TObj, PickAsReadonly<TObj, TKeys>>;
