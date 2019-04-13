@@ -107,10 +107,10 @@ export type MarkKeyOptionalIfUndefined<TObj extends Obj> = (
  */         
 export type OptionalLikelyUndefProps<
     TObj extends Obj
-> = Merge<TObj, PickLikelyUndefPropsOptional<TObj>>;
+> = Merge<TObj, PickLikelyUndefPropsAsOptional<TObj>>;
 
 // Optimization
-type PickLikelyUndefPropsOptional<TObj extends Obj> = PickAsOptional<
+type PickLikelyUndefPropsAsOptional<TObj extends Obj> = PickAsOptional<
     TObj, 
     ValueOf<{ [TKey in keyof TObj]-?: If<(CanBeUndef<TObj[TKey]>), TKey, never>; }>
 >;
