@@ -754,9 +754,6 @@ PickAsRequired<User, 'name' | 'id'> === Required<Pick<User, 'name' | 'id'>>
 PickAsReadonly<User, 'name' | 'id'> === Readonly<Pick<User, 'name' | 'id'>>
 
 // ...
-
-
-
 ```
 
 
