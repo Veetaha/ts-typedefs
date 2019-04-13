@@ -1,4 +1,5 @@
-import { UnionIncludes, If } from './index';
+import { CanBeUndef, If } from './logical';
+import { PickAsOptional } from './pick';
 
 
 /**
@@ -93,18 +94,23 @@ export type Merge<
  > = RemoveKeys<TObj1, Extract<keyof TObj1, keyof TObj2>> & TObj2;
 
 /**
- * Defines the same type as `TObj`, but adds 'optional' modifier `?` to all
- * properties that contain `undefined` in their value type.
- * @param TObj Target object type to take properties from.
+ * @deprecated Use `OptinalLikelyUndefProps<>` instead.
  */
-export type MarkKeyOptionalIfUndefined<TObj extends Obj> = Merge<
-    TObj, 
-    TakeUndefinedProps<TObj>
->;
+export type MarkKeyOptionalIfUndefined<TObj extends Obj> = (
+            OptionalLikelyUndefProps<TObj>
+);
+
+/**
+ * Defines the same type as `TObj`, but adds 'optional' modifier `?` to all
+ * properties that allow `undefined` as their value type (this includes `unknown` and `any`).
+ * @param TObj Target object type to take properties from.
+ */         
+export type OptionalLikelyUndefProps<
+    TObj extends Obj
+> = Merge<TObj, PickLikelyUndefPropsOptional<TObj>>;
 
 // Optimization
-type TakeUndefinedProps<TObj extends Obj> = {
-    [TFilteredKey in ValueOf<{
-        [TKey in keyof TObj]: If<(UnionIncludes<TObj[TKey], undefined>), TKey, never>;
-    }>]?: TObj[TFilteredKey]
-};
+type PickLikelyUndefPropsOptional<TObj extends Obj> = PickAsOptional<
+    TObj, 
+    ValueOf<{ [TKey in keyof TObj]-?: If<(CanBeUndef<TObj[TKey]>), TKey, never>; }>
+>;

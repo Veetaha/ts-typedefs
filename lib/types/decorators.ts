@@ -1,4 +1,4 @@
-import { Class, Func, Obj } from './index';
+import { Class, Func, Obj, OptionalLikelyUndefProps } from './index';
 
 /**
  * Defines a class decorator generic function type.
@@ -69,7 +69,7 @@ export type MethodDecorator<TArgs extends any[] = any[], TRetval = any> = (
 export type PropertyDecorator<TPropType = unknown> = (
     <
         TPropName     extends string | symbol,
-        TProtoOrClass extends Obj<TPropType, TPropName>
+        TProtoOrClass extends OptionalLikelyUndefProps<Obj<TPropType, TPropName>>
     >
     (protoOrClass: TProtoOrClass, propName: TPropName) => void
 );
@@ -95,7 +95,7 @@ export type PropertyDecorator<TPropType = unknown> = (
  * 
  * See https://www.typescriptlang.org/docs/handbook/decorators.html#accessor-decorators
  */
-export type AccessorDecorator<TPropType> = (
+export type AccessorDecorator<TPropType = any> = (
     <
         TPropName     extends string | symbol,
         TProtoOrClass extends Obj<TPropType, TPropName>

@@ -8,6 +8,7 @@ export * from './logical';
 export * from './nullable-non-nullable';
 export * from './objects';
 export * from './partial-required';
+export * from './pick';
 export * from './primitives';
 export * from './readonly-mutable';
 export * from './unpackings';

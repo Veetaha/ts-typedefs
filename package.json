@@ -1,6 +1,6 @@
 {
     "name": "ts-typedefs",
-    "version": "2.2.0",
+    "version": "2.3.0",
     "description": "A handy collection of TypeScript plain and generic type definitions and interfaces.",
     "main": "build/lib/index.js",
     "types": "build/lib/index.d.ts",
@@ -39,7 +39,7 @@
         "ts-node": "^8.0.3",
         "tslint": "^5.13.1",
         "typedoc": "^0.14.2",
-        "typescript": "^3.4.1"
+        "typescript": "^3.4.3"
     },
     "peerDependencies": {
         "typescript": ">=3.4.x"

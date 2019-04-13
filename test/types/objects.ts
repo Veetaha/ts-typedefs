@@ -1,5 +1,5 @@
-import { Merge, AreSame, RemoveKeys, ValueOf, MapValues, MarkKeyOptionalIfUndefined } from "../../lib";
-import { MergeObj1, MergeObj2, AssertTrue, Obj4, Obj1 } from "../helpers";
+import { Merge, AreSame, RemoveKeys, ValueOf, MapValues, OptionalLikelyUndefProps } from "../../lib";
+import { MergeObj1, MergeObj2, AssertTrue, Obj4, Obj1, Obj5 } from "../helpers";
 
 export namespace MergeTest {
 
@@ -62,9 +62,9 @@ export namespace MapValuesTest {
 
 }
 
-export namespace MarkKeyOptionalIfUndefinedTest {
+export namespace OptionalLikelyUndefPropsTest {
     
-    export type t1  = MarkKeyOptionalIfUndefined<Obj1>;
+    export type t1  = OptionalLikelyUndefProps<Obj1>;
     export type _t1 = AssertTrue<AreSame<
         t1,
         Merge<
@@ -76,4 +76,15 @@ export namespace MarkKeyOptionalIfUndefinedTest {
         >
     >>;
 
+    export type t2 = OptionalLikelyUndefProps<Obj5>;
+    export type _t2 = AssertTrue<AreSame<
+        t2,
+        Merge<
+            Obj5,
+            Partial<Pick<
+                Obj5,
+                'any' | 'num_undef' | 'unknown' | 'opt_num'
+            >>
+        >
+    >>;
 }

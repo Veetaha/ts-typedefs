@@ -14,7 +14,6 @@ export interface MergeObj2 {
     _7?: Obj2;
 }
 
-
 export interface Obj1 {
     str: string;
     undef: undefined;
@@ -46,6 +45,14 @@ export interface Obj4 {
     str_null: string | null;
     str:      string;
     bool:     boolean;
+}
+
+export interface Obj5 {
+    opt_num?:  number;
+    num_undef: number | undefined;
+    unknown:   unknown;
+    any:       any;
+    never:     never;
 }
 
 export class ClassObj { 

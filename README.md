@@ -62,6 +62,7 @@ function someFn(userUpd: I.DeepPartial<UserData>, arg: I.MyCustomType) { /* ... 
     * [`Merge<>`](#mergetobj1-tobj2)
     * [`[Deep]Partial/Required<>`](#deeppartialrequiredtobj)
     * [`[Deep]Readonly/Mutable<>`](#deepreadonlymutabletobj)
+    * [`OptionalLikelyUndefProps<>`](#optionallikelyundefpropstobj)
     * [`...`](https://veetaha.github.io/ts-typedefs/modules/_types_objects_.html)
 * [Functions](#functions)
     * [`[Async]Func<>`](#asyncfunctargs-tretval-tthis)
@@ -89,6 +90,7 @@ function someFn(userUpd: I.DeepPartial<UserData>, arg: I.MyCustomType) { /* ... 
     * [`Tag<>`](#tagttarget-ttagname)
     * [`UnionToIntersection<>`](#uniontointersectiontunion)
     * [`UnpackPromise<>` ](#unpackpromisetpromise)
+    * [`PickAsOptional/Required/Readonly/Mutable/NullableProps<>`](#pickasoptionalrequiredreadonlymutablenullablepropstobj-tkeys)
     * [`[Deep]Nullable<>`](#deepnullablet)
     * [`Primitive`](#primitive)
     * [`TypeName`](#typename)
@@ -346,6 +348,27 @@ type t0 = DeepReadonly<number[][][]>;
 // readonly (readonly (readonly number[])[])[]
 ```
 
+### [`OptionalLikelyUndefProps<TObj>`](#provided-type-definitions-and-runtime-units "Go back to contents")
+
+Defines the same type as `TObj`, but adds 'optional' modifier `?` to all
+properties that allow `undefined` as their value type (this includes `unknown` and `any`).
+
+```ts
+interface User {
+    bio: string | undefined;
+    secret: unknown;
+    name: string;
+}
+
+/*
+{
+    bio?: string | undefined;
+    secret?: unknown;  
+    name: string;     // notice may-not-be `undefined` props don't get '?' modifier
+}
+*/
+type RepairedUser = OptionalLikelyUndefProps<User>;
+```
 
 ## Functions
 
@@ -715,6 +738,27 @@ type t3 = UnpackPromise<UnpackPromise<
     Promise<Promise<string>>
 >>;
 ```
+
+### [`PickAsOptional/Required/Readonly/Mutable/NullableProps<TObj, TKeys>`](#provided-type-definitions-and-runtime-units "Go back to contents")
+
+Shorthand for `Partial/Required/Readonly/Mutable/NullableProps<Pick<TObj, TKeys>>`, but better optimized (into one mapped object type).
+
+```ts
+interface User {
+    readonly id: number;
+    name?: string;
+    bio: string;
+}
+PickAsOptional<User, 'name' | 'id'> === Partial<Pick<User, 'name' | 'id'>>
+PickAsRequired<User, 'name' | 'id'> === Required<Pick<User, 'name' | 'id'>>
+PickAsReadonly<User, 'name' | 'id'> === Readonly<Pick<User, 'name' | 'id'>>
+
+// ...
+
+
+
+```
+
 
 ### [`[Deep]Nullable<T>`](#provided-type-definitions-and-runtime-units "Go back to contents")
 `Nullable<T>` defines type `T` that may also be `null` or `undefined`:
