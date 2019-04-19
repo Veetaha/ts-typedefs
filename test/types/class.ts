@@ -23,4 +23,12 @@ export namespace InstanceTypeTest {
         t2,
         ClassObj
     >>;
+
+    type NewAble = new (a: string) => { b: string };
+
+    export type t3 = InstanceType<NewAble>;
+    export type _t3 = AssertTrue<AreSame<
+        t3,
+        { b: string }
+    >>;
 }

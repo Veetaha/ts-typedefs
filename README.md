@@ -55,6 +55,7 @@ function someFn(userUpd: I.DeepPartial<UserData>, arg: I.MyCustomType) { /* ... 
 * [Objects](#objects)
     * [`Obj<>`](#objtvalues-tkeys)
     * [`Class<>`](#classtinstance-targs)
+    * [`InstanceType<> (with abstract classes support)`](#instancetypetclass)
     * [`ValueOf<>`](#valueoftobj)
     * [`RemoveKeys<>`](#removekeystsrcobj-tkeysunion)
     * [`FilterProps<>`](#filterpropstobj-tapprovecond)
@@ -121,6 +122,28 @@ type t0 = Class<User>;
 
 // new (...args: [string, number]) => User
 type t1 = Class<User, [string, number]>;
+```
+
+### [`InstanceType<TClass>`](#provided-type-definitions-and-runtime-units "Go back to contents")
+
+Defines an instance type of the given class or the type of its `prototype` property. 
+`TClass` may even be an abstract class, though those ones are not newable, 
+but the type of their instances can be obtained through their `prototype` property.
+
+```ts
+import { InstanceType } from 'ts-typedefs';
+
+class User { id!: number; } // plain class
+
+function getAbstractUser() {
+    abstract class AbstractUser {  // local abstract class, its type is not
+        id!: number;               // accessible in the global namespace
+    }
+    return AbstractUser;
+}
+
+type t0 = InstanceType<typeof User>; // User
+type t1 = InstanceType<ReturnType<typeof getAbstractUser>>; // AbstractUser
 ```
 
 
