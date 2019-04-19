@@ -16,14 +16,14 @@ export namespace RemoveKeysTest {
     export type t1  = RemoveKeys<Obj4, 'str'>; 
     export type _t1 = AssertTrue<AreSame<
         t1,
-        Pick<Obj4, 'bool' | 'num' | 'str_null'>
+        Pick<Obj4, 'bool' | 'num' | 'str_null' | 'opt_num'>
     >>;
 
 
     export type t2  = RemoveKeys<Obj4, 'str' | 'bool' | 'str_null'>;
     export type _t2 = AssertTrue<AreSame<
         t2,
-        Pick<Obj4, 'num'>
+        Pick<Obj4, 'num' | 'opt_num'>
     >>;
 
 }
@@ -37,6 +37,7 @@ export namespace ValueOfTest {
         | Obj4['bool'] 
         | Obj4['str_null']
         | Obj4['str']
+        | Obj4['opt_num'] 
     >>;
 
     export type t2 = ValueOf<boolean[]>;
@@ -57,6 +58,7 @@ export namespace MapValuesTest {
             str_null: boolean;
             str:      boolean;
             bool:     boolean;
+            opt_num:  boolean;
         }
     >>;
 

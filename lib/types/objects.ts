@@ -109,13 +109,6 @@ export type Merge<
  > = RemoveKeys<TObj1, Extract<keyof TObj1, keyof TObj2>> & TObj2;
 
 /**
- * @deprecated Use `OptinalLikelyUndefProps<>` instead.
- */
-export type MarkKeyOptionalIfUndefined<TObj extends Obj> = (
-            OptionalLikelyUndefProps<TObj>
-);
-
-/**
  * Defines the same type as `TObj`, but adds 'optional' modifier `?` to all
  * properties that allow `undefined` as their value type (this includes `unknown` and `any`).
  * @param TObj Target object type to take properties from.

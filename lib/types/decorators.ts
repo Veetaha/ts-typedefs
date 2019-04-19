@@ -23,6 +23,7 @@ export type ClassDecorator = (
  * 
  * @param TArgs   Tuple type that defines arguments decorated method accepts.
  * @param TRetval Return type of the decorated method.
+ * @param TMethNameLimit Defines the type that the decorated method name `extends`.
  * 
  * @param protoOrClass     Prototype of the decorated method's class (for instance method) 
  *                         or constructor function (for static method).
@@ -40,22 +41,25 @@ export type ClassDecorator = (
  * 
  * See https://www.typescriptlang.org/docs/handbook/decorators.html#method-decorators
  */
-export type MethodDecorator<TArgs extends any[] = any[], TRetval = any> = (
-    <
-        TMethodName   extends string | symbol,
-        TProtoOrClass extends Obj<Func<TArgs, TRetval, TProtoOrClass>, TMethodName>
-    >(
-        protoOrClass:     TProtoOrClass,
-        methodName:       TMethodName,
-        methodDescriptor: TypedPropertyDescriptor<Func<TArgs, TRetval, TProtoOrClass>>
-    ) => void |           TypedPropertyDescriptor<Func<TArgs, TRetval, TProtoOrClass>>
-);
+export type MethodDecorator<
+    TArgs extends any[] = any[], 
+    TRetval = any,
+    TMethNameLimit extends string | symbol = string | symbol
+> = <
+    TMethodName   extends TMethNameLimit,
+    TProtoOrClass extends Obj<Func<TArgs, TRetval, TProtoOrClass>, TMethodName>
+>(
+    protoOrClass:     TProtoOrClass,
+    methodName:       TMethodName,
+    methodDescriptor: TypedPropertyDescriptor<Func<TArgs, TRetval, TProtoOrClass>>
+) => void |           TypedPropertyDescriptor<Func<TArgs, TRetval, TProtoOrClass>>;
 
 
 /**
  * Defines a static or instance property decorator function type.
  * 
- * @param TPropType Decorated property type.
+ * @param TPropType      Decorated property type.
+ * @param TPropNameLimit Defines the type that the decorated property name `extends`.
  * 
  * @param protoOrClass Decorated property class' prototype (for instance property) 
  *                     or constructor function (for static property).
@@ -66,19 +70,20 @@ export type MethodDecorator<TArgs extends any[] = any[], TRetval = any> = (
  * 
  * See https://www.typescriptlang.org/docs/handbook/decorators.html#property-decorators
  */
-export type PropertyDecorator<TPropType = unknown> = (
-    <
-        TPropName     extends string | symbol,
-        TProtoOrClass extends OptionalLikelyUndefProps<Obj<TPropType, TPropName>>
-    >
-    (protoOrClass: TProtoOrClass, propName: TPropName) => void
-);
+export type PropertyDecorator<
+    TPropType = unknown, 
+    TPropNameLimit extends string | symbol = string | symbol
+> = <
+    TPropName     extends TPropNameLimit,
+    TProtoOrClass extends OptionalLikelyUndefProps<Obj<TPropType, TPropName>>
+>(protoOrClass: TProtoOrClass, propName: TPropName) => void;
 
 
 /**
  * Defines a static or instance get/set property accessor decorator function type.
  * 
- * @param TPropType Decorated property accessor type.
+ * @param TPropType      Decorated property accessor type.
+ * @param TPropNameLimit Defines the type that the decorated accessor property name `extends`.
  * 
  * @param protoOrClass    Decorated accessor property class' prototype (for instance accessor) 
  *                        or constructor function (for static accessor).
@@ -95,17 +100,17 @@ export type PropertyDecorator<TPropType = unknown> = (
  * 
  * See https://www.typescriptlang.org/docs/handbook/decorators.html#accessor-decorators
  */
-export type AccessorDecorator<TPropType = any> = (
-    <
-        TPropName     extends string | symbol,
-        TProtoOrClass extends Obj<TPropType, TPropName>
-    >
-    (
-        protoOrClass:   TProtoOrClass, 
-        propName:       TPropName,
-        propDescriptor: TypedPropertyDescriptor<TPropType>
-    ) => void |         TypedPropertyDescriptor<TPropType> 
-);
+export type AccessorDecorator<
+    TPropType = any, 
+    TPropNameLimit extends string | symbol = string | symbol
+> = <
+    TPropName     extends TPropNameLimit,
+    TProtoOrClass extends Obj<TPropType, TPropName>
+>(
+    protoOrClass:   TProtoOrClass, 
+    propName:       TPropName,
+    propDescriptor: TypedPropertyDescriptor<TPropType>
+) => void |         TypedPropertyDescriptor<TPropType>;
 
 /**
  * Defines a static or instance method parameter decorator function type.
@@ -125,20 +130,17 @@ export type AccessorDecorator<TPropType = any> = (
  * 
  * See https://www.typescriptlang.org/docs/handbook/decorators.html#parameter-decorators 
  */
-export type ParameterDecorator<TParamType = unknown> = (
-    <
-        TMethodName   extends string | symbol,
-        TParamIndex   extends number,
-        TProtoOrClass extends Obj<
-            (this: TProtoOrClass, ...args: unknown[] & Obj<TParamType, TParamIndex>) => unknown,
-            TMethodName
-        >
-
+export type ParameterDecorator<TParamType = unknown> = <
+    TMethodName   extends string | symbol,
+    TParamIndex   extends number,
+    TProtoOrClass extends Obj<
+        (this: TProtoOrClass, ...args: unknown[] & Obj<TParamType, TParamIndex>) => unknown,
+        TMethodName
     >
-    (
-        protoOrClass:   TProtoOrClass, 
-        methodName:     TMethodName, 
-        parameterIndex: TParamIndex
-    ) => void
-);
+>
+(
+    protoOrClass:   TProtoOrClass, 
+    methodName:     TMethodName, 
+    parameterIndex: TParamIndex
+) => void;
 

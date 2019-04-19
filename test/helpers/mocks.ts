@@ -45,6 +45,7 @@ export interface Obj4 {
     str_null: string | null;
     str:      string;
     bool:     boolean;
+    opt_num?: number;
 }
 
 export interface Obj5 {

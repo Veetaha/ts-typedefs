@@ -10,7 +10,7 @@ import { Obj, Op, ValueOf, Eval } from './index';
  */
 export type FindKeys<TObj extends Obj, TApproveCond extends Op.BoolOp> = ValueOf<{
 
-    [TKey in keyof TObj]: Eval<TApproveCond, TObj[TKey]> extends true ? TKey : never;
+    [TKey in keyof TObj]-?: Eval<TApproveCond, TObj[TKey]> extends true ? TKey : never;
 
 }>;
                                                                 

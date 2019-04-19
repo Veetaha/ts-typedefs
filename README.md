@@ -59,7 +59,7 @@ function someFn(userUpd: I.DeepPartial<UserData>, arg: I.MyCustomType) { /* ... 
     * [`ValueOf<>`](#valueoftobj)
     * [`RemoveKeys<>`](#removekeystsrcobj-tkeysunion)
     * [`FilterProps<>`](#filterpropstobj-tapprovecond)
-    * [`MapValues<>`](#mapvaluestsrcobj-tmappedvalue)
+    * [`[Deep]MapValues<>`](#mapvaluestsrcobj-tmappedvalue)
     * [`Merge<>`](#mergetobj1-tobj2)
     * [`[Deep]Partial/Required<>`](#deeppartialrequiredtobj)
     * [`[Deep]Readonly/Mutable<>`](#deepreadonlymutabletobj)
@@ -70,8 +70,8 @@ function someFn(userUpd: I.DeepPartial<UserData>, arg: I.MyCustomType) { /* ... 
     * [`AsyncFuncReturnType<>`](#asyncfuncreturntypetasyncfunc)
     * [`...`](https://veetaha.github.io/ts-typedefs/modules/_types_functions_.html)
 * [Decorators](#decorators)
-    * [`MethodDecorator<>`](#methoddecoratortargs-tretval)
-    * [`PropertyDecorator<>`](#propertydecoratortproptype)
+    * [`MethodDecorator<>`](#methoddecoratortargs-tretval-tmethnamelimit)
+    * [`PropertyDecorator<>`](#propertydecoratortproptype-tpropnamelimit)
     * [`...`](https://veetaha.github.io/ts-typedefs/modules/_types_decorators_.html)
 * [Logical](#logical)
     * [`If<>`](#iftcond-tiftrue-telse-tifcondisbool)
@@ -226,21 +226,29 @@ type t1 = FilterProps<
 Because of some TypeScript [limitations and bugs](https://stackoverflow.com/questions/55192212/typescript-circular-type-alias-produces-no-error-and-instead-widens-unit-types) `TApproveCond` tree must be not more than 5 levels deep (number of levels limitation may change, but it can only become greater).
 ### [`MapValues<TSrcObj, TMappedValue>`](#provided-type-definitions-and-runtime-units "Go back to contents")
 Defines the same object type as `TSrcObj`, but all values of `TMappedValue` type.
+`DeepMapValues<>` variant maps values for all nested objects recursively.
 ```ts
 interface User {
-    id:         number;
-    login:      string | null;
-    password:   string;
+    login?: string | null;
+    friend: {
+        friendliness: number;
+        ref: User;
+    }
 }
 
-/* 
-{ 
-    id:       boolean; 
-    login:    boolean; 
-    password: boolean; 
+/* {  login: boolean; friend: boolean; } */
+type t0 = MapValues<User, boolean>;
+/*
+{
+    login: boolean;
+    friend: {
+        friendliness: boolean;
+        ref: DeepMapValues<User, boolean>
+    }
 }
 */
-type t0 = MapValues<User, boolean>;
+type t1 = DeepMapValues<User, boolean>;
+
 ```
 
 ### [`Merge<TObj1, TObj2>`](#provided-type-definitions-and-runtime-units "Go back to contents")
@@ -436,13 +444,15 @@ type t1 = AsyncFuncReturnType<typeof User.getById>
 
 ## Decorators
 
-### [`MethodDecorator<TArgs, TRetval>`](#provided-type-definitions-and-runtime-units "Go back to contents")
-Defines a static or instance method decorator function type. `TArgs` tuple type limits the arguments' type decorated method accepts, `TRetval` limits the return type of the decorated method.
+### [`MethodDecorator<TArgs, TRetval, TMethNameLimit>`](#provided-type-definitions-and-runtime-units "Go back to contents")
+Defines a static or instance method decorator function type. `TArgs` tuple type limits the arguments' type decorated method accepts, `TRetval` limits the return type of the decorated method. `TMethNameLimit` defines the limitation for method names this decorator may be applied to.
 
 ```ts
-declare function decor0(): MethodDecorator;
-declare function decor1(): MethodDecorator<[boolean]>;
-function decor2(): MethodDecorator<[string, number], boolean> {
+declare function decor_any(): MethodDecorator;
+declare function decor_bool(): MethodDecorator<[boolean]>;
+declare function decor_getId(): MethodDecorator<any[], any, 'getId'>;
+
+function decor_str$num_bool(): MethodDecorator<[string, number], boolean> {
     // argument types are automatically deduced and strongly typed here
     return (protoOrClass, methodName, propDescriptor) => {
         /* (this: typeof protoOrClass, ...args: [string, number]) => boolean */
@@ -452,42 +462,62 @@ function decor2(): MethodDecorator<[string, number], boolean> {
 };
 
 class User {
-    @decor0() // works fine
-    @decor1() // `decor1()` and `decor2()` generate compile-time error
-    @decor2()
+    @decor_getId()        // compile error (method name mismatch)
+    @decor_bool()         // compile error (params type mismatch)
+    @decor_str$num_bool() // compile error (params and return type mismatch)
+    @decor_any()          // works fine
     meth0(bol: boolean, num: number): void {}
 
-    @decor0()
-    @decor1() // works fine
+    @decor_any()  // works fine
+    @decor_bool() // works fine
     meth1(bol: boolean) {
         return bol ? 32 : 'kek';
     }
 
-    @decor0()
-    @decor2() // works fine
+    @decor_any()          // works fine
+    @decor_str$num_bool() // works fine
     meth2(str: string, num: number) {
         return !!str && !!num;
     }
+
+    @decor_getId() // works fine
+    getId() { }
 }
 ```
 
-### [`PropertyDecorator<TPropType>`](#provided-type-definitions-and-runtime-units "Go back to contents")
+### [`PropertyDecorator<TPropType, TPropNameLimit>`](#provided-type-definitions-and-runtime-units "Go back to contents")
 Defines a static or instance property decorator function type.
 
 ```ts
-declare function decor1(): PropertyDecorator;
-function decor0(): PropertyDecorator<string> {
+declare function decorateAny(): PropertyDecorator;
+function decorateStr(): PropertyDecorator<string> {
+    return /* function arguments are analogously deduced */;
+};
+function decorIdProp(): PropertyDecorator<number, 'id' | '_id'> {
     return /* function arguments are analogously deduced */;
 };
 
+
 export class User {
-    @decor0()
-    @decor1() // works fine
+    @decorIdProp() // compile error (prop name and value tyep mismatch)
+    @decorateStr() // works fine
+    @decorateAny() // works fine
     prop0!: string;
 
-    @decor1() // compile error
-    @decor0() // works fine
-    prop1!: boolean;
+    @decorIdProp() // compile error (prop name mismatch)
+    @decorateStr() // compile error (prop value type mismatch)
+    @decorateAny() // works fine
+    prop1!: number;
+
+    @decorIdProp() // works fine
+    @decorateStr() // compile error (prop value type mismatch)
+    @decorateAny() // works fine
+    _id!: number;
+
+    @decorIdProp() // compile error (prop value type mismatch)
+    @decorateStr() // works fine
+    @decorateAny() // works fine
+    id!: string;
 }
 ```
 ## Logical

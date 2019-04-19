@@ -32,7 +32,7 @@ export namespace FilterPropsTest {
     >;
     export type _t3 = AssertTrue<AreSame<
         t3, 
-        { bool: boolean; num: number; }
+        { bool: boolean; num: number; opt_num?: number | undefined }
     >>;
 
 }

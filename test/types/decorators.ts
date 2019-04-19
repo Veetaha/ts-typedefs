@@ -17,10 +17,19 @@ function anyPropDecor(): PropertyDecorator
 function strPropDecor(): PropertyDecorator<string>
 { return () => {}; }
 
+function strPropSymbolDecor(): PropertyDecorator<string, symbol> 
+{ return () => {}; }
+
+function numPropIdDecor(): PropertyDecorator<number, 'id'> 
+{ return () => {}; }
+
 function anyAccDecor(): AccessorDecorator<any>
 { return () => {}; }
 
 function strAccDecor(): AccessorDecorator<string>
+{ return () => {}; }
+
+function strAccFooDecor(): AccessorDecorator<string, 'foo'>
 { return () => {}; }
 
 function str_undefAccDecor(): AccessorDecorator<string | undefined>
@@ -32,8 +41,26 @@ function anyParamDecor(): ParameterDecorator
 function numParamDecor(): ParameterDecorator<number>
 { return () => {}; }
 
+const symbol: unique symbol = Symbol();
+
 export class DecoratedClassObj {
 
+    @strAccFooDecor()
+    get foo() {
+        return '';
+    }
+
+    // @strAccFooDecor()
+    get _foo() {
+        return '';
+    }
+
+    @numPropIdDecor()
+    id!: number;
+
+    // @numPropIdDecor()
+    @anyPropDecor()
+    _id!: number;
 
 
     // err
@@ -58,9 +85,15 @@ export class DecoratedClassObj {
     // @anyMethDecor()
     // @anyAccDecor()
     // @anyParamDecor()
+    
     @anyPropDecor()
     opt_str?: string;
 
+
+    @strPropSymbolDecor()
+    [symbol]!: string;
+
+    // @strPropSymbolDecor()
     @strPropDecor()
     @anyPropDecor()
     str!: string;
