@@ -12,6 +12,14 @@ export type Class<
  * Defines constructor function prototype property type.
  * @param TClass Target constructor function type.
  */
-export type ClassPrototype<TClass extends { prototype: unknown }> = (
+export type ClassPrototype<TClass extends Prototypeful> = (
     TClass['prototype']
 );
+
+export interface Prototypeful<TProto = unknown> {
+    prototype: TProto;
+}
+
+export type InstanceType<
+    TAbstractClass extends Prototypeful
+> = ClassPrototype<TAbstractClass>;

@@ -1,4 +1,4 @@
-import { Merge, AreSame, RemoveKeys, ValueOf, MapValues, OptionalLikelyUndefProps } from "../../lib";
+import { Merge, AreSame, RemoveKeys, ValueOf, MapValues, OptionalLikelyUndefProps, DeepMapValues } from "../../lib";
 import { MergeObj1, MergeObj2, AssertTrue, Obj4, Obj1, Obj5 } from "../helpers";
 
 export namespace MergeTest {
@@ -86,5 +86,24 @@ export namespace OptionalLikelyUndefPropsTest {
                 'any' | 'num_undef' | 'unknown' | 'opt_num'
             >>
         >
+    >>;
+}
+
+export namespace DeepMapValuesTest {
+    export type t1 = DeepMapValues<{ 
+        num: number;
+        nested:             { num: number; str: string; };
+        nested_null: null | { num: number; str: string; };
+    }, boolean>;
+    export type _t1 = AssertTrue<AreSame<
+        t1, 
+        {
+            num:      boolean;
+            nested: {
+                num: boolean;
+                str: boolean;
+            }
+            nested_null: boolean;
+        }
     >>;
 }

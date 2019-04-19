@@ -46,3 +46,12 @@ export type PickAsMutable<TObj extends Obj, TKeys extends keyof TObj> = {
 export type PickAsNullableProps<TObj extends Obj, TKeys extends keyof TObj> = {
     [TKey in TKeys]?: Nullable<TObj[TKey]>;
 };
+
+/**
+ * Shorthand for `NonNullableProps<Pick<TObj, TKeys>>`, but better optimized (into one mapped object type).
+ * @param TObj  Object type to pick properties from.
+ * @param TKeys Union type of keys to pick.
+ */
+export type PickAsNonNullableProps<TObj extends Obj, TKeys extends keyof TObj> = {
+    [TKey in TKeys]-?: NonNullable<TObj[TKey]>;
+};

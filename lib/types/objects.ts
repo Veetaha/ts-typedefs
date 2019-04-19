@@ -36,8 +36,8 @@ export type ReadonlyObj<
 > = Readonly<Obj<TValue, TKey>>;
 
 /**
- * Defines the same object type as `TSrcObj`, but all values
- * of `TMappedValue` type.
+ * Defines the same object type as `TSrcObj`, but all values types
+ * replaced with `TMappedValue` type.
  * @param TSrcObj       Type of object to take keys from.
  * @param TMappedValue  Type of values in the created object type.
  */
@@ -45,6 +45,21 @@ export type MapValues<
     TSrcObj extends Obj, 
     TMappedValue
 > = Obj<TMappedValue, keyof TSrcObj>;
+
+/**
+ * Defines the same object type as `TSrcObj`, but all values types
+ * replaced with `TMappedValue` type **recursively**.
+ * @param TSrcObj       Type of object to take keys from.
+ * @param TMappedValue  Type of values in the created object type.
+ */
+export type DeepMapValues<
+    TSrcObj extends Obj, 
+    TMappedValue
+> = {
+    [TKey in keyof TSrcObj]: TSrcObj[TKey] extends Obj 
+        ? DeepMapValues<TSrcObj[TKey], TMappedValue>
+        : TMappedValue;
+};
 
 
 /**

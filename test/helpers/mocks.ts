@@ -79,3 +79,8 @@ export interface NestedObj {
 export declare class ClassObj2 {
     static promiseObj4Method(num: number): Promise<Obj4>;
 }
+
+export declare abstract class AbstractClass {
+    str: string;
+    num: number;
+}

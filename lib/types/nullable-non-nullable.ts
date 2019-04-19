@@ -1,5 +1,5 @@
 import { Obj, Merge } from './index';
-import { PickAsNullableProps } from './pick';
+import { PickAsNullableProps, PickAsNonNullableProps } from './pick';
 
 /**
  * Defines type `T` that may also be `null` or `undefined`.
@@ -36,3 +36,13 @@ export type NullableProps<
     TObj extends Obj,
     TKeys extends keyof TObj = keyof TObj
 > = Merge<TObj, PickAsNullableProps<TObj, TKeys>>;
+
+/**
+ * Defines the same type as `TObj` but with `TKeys` made non-nullable (and required).
+ * @param TObj  Object type to make `TKeys` non-nullable in.
+ * @param TKeys Union type of keys that will be defined as non-nullable in the resulting type.
+ */
+export type NonNullableProps<
+    TObj extends Obj,
+    TKeys extends keyof TObj = keyof TObj
+> = Merge<TObj, PickAsNonNullableProps<TObj, TKeys>>;
