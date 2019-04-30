@@ -10,7 +10,7 @@ import { PickAsOptional } from './pick';
  *               most probably you will specify a union of some string or number unit types.
  */
 export type Obj<
-    TValue = unknown, 
+    TValue = any, 
     TKeys extends PropertyKey = any
 > = Record<TKeys, TValue>;
 
@@ -25,6 +25,14 @@ export type Tuple<TItems = unknown> = [TItems] | TItems[];
  * @param TObj Object type to get values from.
  */
 export type ValueOf<TObj extends Obj> = TObj[keyof TObj];
+
+/**
+ * Shorthand for `Extract<keyof TObj, string>`, i.e. it gets only those keys 
+ * that are assignable to `string` (without `number | symbol`)
+ * 
+ * @param TObj Objet type to get string keys from.
+ */
+export type StrKeyOf<TObj extends Obj> = Extract<keyof TObj, string>;
 
 /**
  * Same as BasicObject<>, but defines all properties as readonly.
