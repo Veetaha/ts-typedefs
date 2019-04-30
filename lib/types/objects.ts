@@ -93,9 +93,9 @@ export type RemoveKeys<
  * @param TNewKey  New name (or symbol) for the `TObj[TPrevKey]` property.
  */
 export type RenameKey<
-    TObj extends Obj, 
-    TPrevKey extends keyof Obj, 
-    TNewKey extends PropertyKey
+    TObj     extends Obj, 
+    TPrevKey extends keyof TObj, 
+    TNewKey  extends PropertyKey
 > = Merge<RemoveKeys<TObj, TPrevKey>, Obj<TObj[TPrevKey], TNewKey>>;
 
 /** 
@@ -106,7 +106,7 @@ export type RenameKey<
 export type Merge<
     TObj1 extends Obj, 
     TObj2 extends Obj
- > = RemoveKeys<TObj1, Extract<keyof TObj1, keyof TObj2>> & TObj2;
+ > = Pick<TObj1, Exclude<keyof TObj1, keyof TObj2>> & TObj2;
 
 /**
  * Defines the same type as `TObj`, but adds 'optional' modifier `?` to all
