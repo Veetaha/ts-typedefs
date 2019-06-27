@@ -118,12 +118,6 @@ export interface UnionIncludes<TNeedle = unknown> {
 }
 
 /**
- * @deprecated Use `Op.UnionExcludes<>` instead
- * Shorthand for `Op.Not<Op.UnionIncludes<TNeedle>>`.
- */
-export type UnionNotIncludes<TNeedle = unknown> = UnionExcludes<TNeedle>;
-
-/**
  * Shorthand for `Op.Not<Op.UnionIncludes<TNeedle>>`.
  */
 export type UnionExcludes<TNeedle = unknown> = Not<UnionIncludes<TNeedle>>;

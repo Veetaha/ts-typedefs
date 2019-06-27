@@ -13,6 +13,7 @@ export * from './primitives';
 export * from './readonly-mutable';
 export * from './unpackings';
 export * from './tag';
+export * from './tuples';
 
 import * as Op from './type-operators';
 export { Op };

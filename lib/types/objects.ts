@@ -15,12 +15,6 @@ export type Obj<
 > = Record<TKeys, TValue>;
 
 /**
- * Defines tuple type of `TItems` union type values.
- * @param TItems Union type of items of the defined tuple.
- */
-export type Tuple<TItems = unknown> = [TItems] | TItems[];
-
-/**
  * Defines a union type of all the values stored in `TObj`.
  * @param TObj Object type to get values from.
  */

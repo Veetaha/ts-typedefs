@@ -63,7 +63,7 @@ export namespace FuncContextTest {
     export type t2 = FuncContext<(arg: string) => Promise<void>>;
     export type _t2 = AssertTrue<AreSame<
         t2, 
-        {}
+        unknown
     >>;
 
 }
