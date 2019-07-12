@@ -106,7 +106,7 @@ Let's see them in details.
 
 Defines an object with keys of type `TKeys`, and all values of `TValue` type.
 ```ts
-type t0 = Obj;                      // { [key: string]: unknown; }     
+type t0 = Obj;                      // { [key: string]: any; }     
 type t1 = Obj<boolean>;             // { [key: string]: boolean; }     
 type t2 = Obj<string, number>;      // { [key: number]: string;  }
 type t3 = Obj<number, 'p1' | 'p2'>; // { p1: number, p2: number; }
@@ -409,19 +409,19 @@ Defines a Function subtype with the given arguments, return type and `this` cont
 ```ts
 interface User { /* ... */ }
 
-// (this: unknown, ...args: any) => unknown
+// (this: any, ...args: any) => unknown
 type t0 = Func;                               
 
-// (this: unknown, ...args: [string, number | undefined]) => unknown
+// (this: any, ...args: [string, number | undefined]) => unknown
 type t1 = Func<[string, number | undefined]>;
 
-// (this: unknown, ...args: [boolean]) => void
+// (this: any, ...args: [boolean]) => void
 type t2 = Func<[boolean], void>;
 
 // (this: User,    ...args: [boolean]) => number
 type t3 = Func<[boolean], number, User>;
 
-// (this: unknown, ...args: [string]) => Promise<User>
+// (this: any, ...args: [string]) => Promise<User>
 type t4 = AsyncFunc<[string], User>
 ```
 

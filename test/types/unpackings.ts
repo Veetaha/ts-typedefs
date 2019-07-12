@@ -34,7 +34,6 @@ export namespace DeepWidenTest {
             tuple$Obj3$:            t1[];
         }
     >>;
-
 }
 
 export namespace UnpackTypePredicateTest {
