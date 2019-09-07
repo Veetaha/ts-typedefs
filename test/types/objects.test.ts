@@ -1,37 +1,37 @@
 import { Merge, AreSame, RemoveKeys, ValueOf, MapValues, OptionalLikelyUndefProps, DeepMapValues } from "../../lib";
-import { MergeObj1, MergeObj2, AssertTrue, Obj4, Obj1, Obj5 } from "../helpers";
+import { MergeObj1, MergeObj2, AssertTrue, Obj4, Obj1, Obj5, describeType } from "../helpers";
 
-export namespace MergeTest {
+describeType('Merge', () => {
 
-    export type t1  = Merge<MergeObj1, MergeObj2>;
-    export type _t1 = AssertTrue<AreSame<
+    type t1  = Merge<MergeObj1, MergeObj2>;
+    type _t1 = AssertTrue<AreSame<
         t1, 
         Pick<MergeObj1, '_2' | '_3' | '_4' | '_5'> & MergeObj2
     >>;
 
-}
+});
 
-export namespace RemoveKeysTest {
+describeType('RemoveKeys', () => {
 
-    export type t1  = RemoveKeys<Obj4, 'str'>; 
-    export type _t1 = AssertTrue<AreSame<
+    type t1  = RemoveKeys<Obj4, 'str'>; 
+    type _t1 = AssertTrue<AreSame<
         t1,
         Pick<Obj4, 'bool' | 'num' | 'str_null' | 'opt_num'>
     >>;
 
 
-    export type t2  = RemoveKeys<Obj4, 'str' | 'bool' | 'str_null'>;
-    export type _t2 = AssertTrue<AreSame<
+    type t2  = RemoveKeys<Obj4, 'str' | 'bool' | 'str_null'>;
+    type _t2 = AssertTrue<AreSame<
         t2,
         Pick<Obj4, 'num' | 'opt_num'>
     >>;
 
-}
+});
 
-export namespace ValueOfTest {
+describeType('ValueOf', () => {
 
-    export type t1  = ValueOf<Obj4>;
-    export type _t1 = AssertTrue<AreSame<
+    type t1  = ValueOf<Obj4>;
+    type _t1 = AssertTrue<AreSame<
         t1,
         | Obj4['num'] 
         | Obj4['bool'] 
@@ -40,18 +40,18 @@ export namespace ValueOfTest {
         | Obj4['opt_num'] 
     >>;
 
-    export type t2 = ValueOf<boolean[]>;
-    export type _t2 = AssertTrue<AreSame<
+    type t2 = ValueOf<boolean[]>;
+    type _t2 = AssertTrue<AreSame<
         t2,
         boolean[][keyof boolean[]]
     >>;
 
-}
+});
 
-export namespace MapValuesTest {
+describeType('MapValues', () => {
 
-    export type t1 = MapValues<Obj4, boolean>;
-    export type _t1 = AssertTrue<AreSame<
+    type t1 = MapValues<Obj4, boolean>;
+    type _t1 = AssertTrue<AreSame<
         t1, 
         {
             num:      boolean;
@@ -62,12 +62,12 @@ export namespace MapValuesTest {
         }
     >>;
 
-}
+});
 
-export namespace OptionalLikelyUndefPropsTest {
+describeType('OptionalLikelyUndefProps', () => {
     
-    export type t1  = OptionalLikelyUndefProps<Obj1>;
-    export type _t1 = AssertTrue<AreSame<
+    type t1  = OptionalLikelyUndefProps<Obj1>;
+    type _t1 = AssertTrue<AreSame<
         t1,
         Merge<
             Obj1, 
@@ -78,8 +78,8 @@ export namespace OptionalLikelyUndefPropsTest {
         >
     >>;
 
-    export type t2 = OptionalLikelyUndefProps<Obj5>;
-    export type _t2 = AssertTrue<AreSame<
+    type t2 = OptionalLikelyUndefProps<Obj5>;
+    type _t2 = AssertTrue<AreSame<
         t2,
         Merge<
             Obj5,
@@ -89,15 +89,15 @@ export namespace OptionalLikelyUndefPropsTest {
             >>
         >
     >>;
-}
+});
 
-export namespace DeepMapValuesTest {
-    export type t1 = DeepMapValues<{ 
+describeType('DeepMapValues', () => {
+    type t1 = DeepMapValues<{ 
         num: number;
         nested:             { num: number; str: string; };
         nested_null: null | { num: number; str: string; };
     }, boolean>;
-    export type _t1 = AssertTrue<AreSame<
+    type _t1 = AssertTrue<AreSame<
         t1, 
         {
             num:      boolean;
@@ -108,4 +108,4 @@ export namespace DeepMapValuesTest {
             nested_null: boolean;
         }
     >>;
-}
+});

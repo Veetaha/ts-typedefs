@@ -33,6 +33,6 @@
         "pretty":       true,
     },
     "files":   [ "lib/index.ts" ],
-    "include": [ "lib/**/*", "test/**/*" ],
-    "exclude": [ "_*.ts", "node_modules/**/*", "build" ]
+    "include": [ "lib/**/*" ],
+    "exclude": [ "_*", "node_modules/**/*", "build" ]
 }
