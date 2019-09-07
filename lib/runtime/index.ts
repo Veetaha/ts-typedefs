@@ -16,12 +16,12 @@ export { Debug };
  * places in code and it may be easier to do a Ctrl + F search for these.
  * 
  * ```ts
- * import * as I from 'ts-typedefs';
+ * import { DeepPartial, RemoveKeys, reinterpret } from 'ts-typedefs';
  * 
  * interface User {
  *  // ...
  * }
- * type UserUpdate = I.DeepPartial<I.RemoveKeys<User, 'password'>>;
+ * type UserUpdate = DeepPartial<RemoveKeys<User, 'password'>>;
  * 
  * const userUpd: UserUpdate = // ...
  * 
@@ -29,7 +29,7 @@ export { Debug };
  *     password: 'somepassword-pfff', otherRequiredFields: // ...
  * });
  *
- * let user = I.reinterpret<User>(userUpd); // Here userUpd has the same shape as `User`
+ * let user = reinterpret<User>(userUpd); // Here userUpd has the same shape as `User`
  * // `typeof user` is `User`
  *  
  * ```

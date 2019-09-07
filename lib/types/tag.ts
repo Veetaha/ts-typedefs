@@ -1,4 +1,3 @@
-
 /**
  * Defines nominal type by adding a property with `TTagName` value to `TTarget`.
  * `TTagName` must be unique across your application, treat it like the name of
@@ -12,17 +11,19 @@
  * 
  * @remarks
  * ```ts
- * import * as I from 'ts-typedefs';
+ * import { Tag } from 'ts-typedefs';
  * 
- * type PositiveInt = I.Tag<number, 'PositiveInt'>;
- * type CsvString   = I.Tag<string, 'CsvString'>;
+ * // Number value that is strictly grater than zero.
+ * type PositiveInt = Tag<number, 'PositiveInt'>;
  * 
- * // Prerequisites: `userId > 0`
+ * // Represents valid csv string.
+ * type CsvString = Tag<string, 'CsvString'>;
+ * 
+ *
  * async function getUser(userId: PositiveInt) {
  *      return userRepository.findById(userId);
  * }
  * 
- * // Prerequisites: given string must be valid csv
  * function parseCsv(csvString: CsvString) {
  *      // Here you may be sure that client payed attention to checking the input
  * 
@@ -34,7 +35,9 @@
  * getUser(58 as PositiveInt); // fine (explicit cast pays your attention to prerequisites)
  * 
  * parseCsv('\nbla bla');      // compile error
- * parseCsv('a,b,c\nd,e,f' as CsvString);   // fine
+ * parseCsv('a,b,c\nd,e,f' as CsvString); // fine
  * ```
  */
-export type Tag<TTarget, TTagName> = TTarget & { ['ts-typedefs.Tag']: TTagName };
+export type Tag<TTarget, TTagName> = TTarget & { [PHANTOM_TAGNAME_US]: TTagName };
+
+declare const PHANTOM_TAGNAME_US: unique symbol;

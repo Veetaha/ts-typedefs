@@ -3,17 +3,16 @@
  * 
  * @remarks
  * ```ts
- * import * as I from 'ts-typedefs';
- * const val: string | number;
- * 
+ * import { Debug } from 'ts-typedefs';
+ * declare const val: string | number;
  * 
  * if (typeof val === 'string') {
  *      return null;
  * } else if (typeof val === 'number') {
- *      throw new I.UnreachableCodeError(val); // compiler error: val is not of type `never`
+ *      throw new Debug.UnreachableCodeError(val); // compiler error: val is not of type `never`
  *      return;
  * } else {
- *      throw new I.UnreachableCodeError(val); // this is ok val has `never` type here
+ *      throw new Debug.UnreachableCodeError(val); // this is ok val has `never` type here
  * }
  * ```
  */

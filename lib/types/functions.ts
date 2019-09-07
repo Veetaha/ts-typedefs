@@ -1,26 +1,25 @@
 import { UnpackPromise, Tuple, Obj } from './index';
 
 /**
- * Defines a Function subtype with the given arguments, return value and `this` context.
+ * Defines a function type with the given arguments, return value and `this` context.
  * 
- * @param TArgs   Tuple of argument types that this function accepts.
- * @param TRetval Type of value this function returns.
- * @param TThis   Type `this` function context.
- * 
+ * @param TArgs   Tuple of argument types that defined function accepts.
+ * @param TRet    Type of value this function returns.
+ * @param TThis   Type of `this` function context.
  */
 export type Func<
     TArgs extends Tuple<any> = any,
-    TRetval                  = unknown,
+    TRet                     = unknown,
     TThis                    = any
-> = (this: TThis, ...args: TArgs) => TRetval;
+> = (this: TThis, ...args: TArgs) => TRet;
 
 /**
  * Defines an asyncronous function, which is typically marked with `async` modifier,
  * with arguments specified as a tuple type `TArgs` and return type as `Promise<TRet>`.
  *
  * @param TArgs   Tuple type of arguments that defined async function accepts.
- * @param TRetval Type this function returns `Promise` for.
- * @param TRet    Type of the return value of the async function.
+ * @param TRet    Type this function returns `Promise` for.
+ * @param TThis   Type of `this` function context.
  * 
  */
 export type AsyncFunc<
@@ -60,7 +59,7 @@ export type TypePredicate<
  * manually.
  * 
  * @param TClass      Class instance type to take method from (also becomes `this` type).
- * @param TMethodName Keyof `TClass` that defines the method name to take from `TClass`. * 
+ * @param TMethodName Keyof `TClass` that defines the method name to take from `TClass`.
  */
 export type Method<
     TClass      extends Obj<Func, TMethodName>, 
@@ -77,3 +76,59 @@ export type FuncContext<
     TFunc extends Func
 > = TFunc extends Func<any, any, infer TThis> ? TThis : never;
 
+
+/**
+ * Defines a function type with the given arguments, and `this` context.
+ * Return value of the defined function type is `void`.
+ *  
+ * 
+ * @param TArgs   Tuple of argument types that this function accepts.
+ * @param TThis   Type `this` function context.
+ * 
+ */
+export type Routine<
+    TArgs extends Tuple<any> = any,
+    TThis                    = any
+> = Func<TArgs, void, TThis>;
+
+/**
+ * Defines an asyncronous function, which is typically marked with `async` modifier,
+ * with arguments specified as a tuple type `TArgs` and return type as `Promise<unknown>`.
+ *
+ * @param TArgs   Tuple type of arguments that defined async function accepts.
+ * @param TThis   Type `this` function context.
+ */
+export type AsyncRoutine<
+    TArgs extends Tuple<any> = any,
+    TThis                    = any
+> = Func<TArgs, Promise<unknown>, TThis>;
+
+
+/**
+ * Defines a function type with the given arguments and `this` context.
+ * Defined function may return `TRet` synchronously or asynchronously i.e.
+ * `Promise<TRet>`.
+ * 
+ * @param TArgs   Tuple of argument types that defined function accepts.
+ * @param TRet    Type of value this function returns.
+ * @param TThis   Type of `this` function context.
+ */
+export type SyncOrAsyncFunc<
+    TArgs extends Tuple<any> = any,
+    TRet                     = unknown,
+    TThis                    = any
+> = (this: TThis, ...args: TArgs) => (TRet | Promise<TRet>);
+
+
+/**
+ * Defines a function type with the given arguments and `this` context.
+ * Defined function may return synchronously or asynchronously. Its return value
+ * should be ignored (it is `void | Promise<unknown>`).
+ * 
+ * @param TArgs   Tuple of argument types that defined function accepts.
+ * @param TThis   Type of `this` function context.
+ */
+export type SyncOrAsyncRoutine<
+    TArgs extends Tuple<any> = any,
+    TThis                    = any
+> = (this: TThis, ...args: TArgs) => (void | Promise<unknown>);
