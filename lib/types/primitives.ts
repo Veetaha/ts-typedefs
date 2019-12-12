@@ -4,11 +4,11 @@
  * @remarks null and undefined are considered to be primitive types.
  */
 export type Primitive = (
-    | number 
-    | string 
-    | boolean  
-    | undefined 
-    | symbol 
+    | number
+    | string
+    | boolean
+    | undefined
+    | symbol
     | null
     | bigint
 );
@@ -16,12 +16,12 @@ export type Primitive = (
  * Defines a union of all possible strings retuned by applying `typeof` operator.
  */
 export type TypeName = (
-    | 'number'    
-    | 'string' 
-    | 'boolean'  
-    | 'undefined' 
-    | 'object' 
-    | 'function' 
+    | 'number'
+    | 'string'
+    | 'boolean'
+    | 'undefined'
+    | 'object'
+    | 'function'
     | 'symbol'
     | 'bigint'
 );

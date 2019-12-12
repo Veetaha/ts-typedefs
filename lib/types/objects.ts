@@ -10,7 +10,7 @@ import { PickAsOptional } from './pick';
  *               most probably you will specify a union of some string or number unit types.
  */
 export type Obj<
-    TValue = any, 
+    TValue = any,
     TKeys extends PropertyKey = any
 > = Record<TKeys, TValue>;
 
@@ -21,9 +21,9 @@ export type Obj<
 export type ValueOf<TObj extends Obj> = TObj[keyof TObj];
 
 /**
- * Shorthand for `Extract<keyof TObj, string>`, i.e. it gets only those keys 
+ * Shorthand for `Extract<keyof TObj, string>`, i.e. it gets only those keys
  * that are assignable to `string` (without `number | symbol`)
- * 
+ *
  * @param TObj Objet type to get string keys from.
  */
 export type StrKeyOf<TObj extends Obj> = Extract<keyof TObj, string>;
@@ -33,7 +33,7 @@ export type StrKeyOf<TObj extends Obj> = Extract<keyof TObj, string>;
  * @param TValue Type of values, stored in object's readonly properties.
  */
 export type ReadonlyObj<
-    TValue = unknown, 
+    TValue = unknown,
     TKey extends PropertyKey = any
 > = Readonly<Obj<TValue, TKey>>;
 
@@ -44,7 +44,7 @@ export type ReadonlyObj<
  * @param TMappedValue  Type of values in the created object type.
  */
 export type MapValues<
-    TSrcObj extends Obj, 
+    TSrcObj extends Obj,
     TMappedValue
 > = Obj<TMappedValue, keyof TSrcObj>;
 
@@ -55,10 +55,10 @@ export type MapValues<
  * @param TMappedValue  Type of values in the created object type.
  */
 export type DeepMapValues<
-    TSrcObj extends Obj, 
+    TSrcObj extends Obj,
     TMappedValue
 > = {
-    [TKey in keyof TSrcObj]: TSrcObj[TKey] extends Obj 
+    [TKey in keyof TSrcObj]: TSrcObj[TKey] extends Obj
         ? DeepMapValues<TSrcObj[TKey], TMappedValue>
         : TMappedValue;
 };
@@ -67,7 +67,7 @@ export type DeepMapValues<
 /**
  * Defines the same object type as `TSrcObj`, but with `TKeys` keys
  * having the value of type `TNewValue`.
- * 
+ *
  * @param TSrcObj   Type of object to replace property type of.
  * @param TKeys     Union type of keys to change value types of (often just a string literal).
  * @param TNewValue Type of values stored at `TKeys` keys in the returned type.
@@ -95,18 +95,18 @@ export type RemoveKeys<
  * @param TNewKey  New name (or symbol) for the `TObj[TPrevKey]` property.
  */
 export type RenameKey<
-    TObj     extends Obj, 
-    TPrevKey extends keyof TObj, 
+    TObj     extends Obj,
+    TPrevKey extends keyof TObj,
     TNewKey  extends PropertyKey
 > = Merge<RemoveKeys<TObj, TPrevKey>, Obj<TObj[TPrevKey], TNewKey>>;
 
-/** 
+/**
  * Merge objects `TObj1` and `TObj2`.
  * Properties types from `TObj2` override the ones defined on `TObj1`.
  * This type is analogous to the return type of `Object.assign()`
  */
 export type Merge<
-    TObj1 extends Obj, 
+    TObj1 extends Obj,
     TObj2 extends Obj
  > = Pick<TObj1, Exclude<keyof TObj1, keyof TObj2>> & TObj2;
 
@@ -114,13 +114,13 @@ export type Merge<
  * Defines the same type as `TObj`, but adds 'optional' modifier `?` to all
  * properties that allow `undefined` as their value type (this includes `unknown` and `any`).
  * @param TObj Target object type to take properties from.
- */         
+ */
 export type OptionalLikelyUndefProps<
     TObj extends Obj
 > = Merge<TObj, PickLikelyUndefPropsAsOptional<TObj>>;
 
 // Optimization
 type PickLikelyUndefPropsAsOptional<TObj extends Obj> = PickAsOptional<
-    TObj, 
+    TObj,
     ValueOf<{ [TKey in keyof TObj]-?: If<(CanBeUndef<TObj[TKey]>), TKey, never>; }>
 >;

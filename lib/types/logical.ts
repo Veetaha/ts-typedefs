@@ -4,7 +4,7 @@ import { UnpackArray, Func, AsyncFunc } from "./index";
  * Defines `false`      unit type if `T extends true`.
  * Defines `true`       unit type if `T extends false`.
  * Defines `TIfTIsBool` when `T` is exactly `boolean` type.
- * 
+ *
  * @param T          Boolean type to get negation for.
  * @param TIfTIsBool Resulting type when `T` is exactly of `boolean` type.
  */
@@ -15,20 +15,20 @@ export type Not<T extends boolean, TIfTIsBool = never> = If<(T), false, true, TI
  * Expands to `TIfTrue`       if `TCond extends true`.
  * Expands to `TElse`         if `TCond extends false`.
  * Expands to `TIfCondIsBool` if `TCond extends boolean`.
- * 
+ *
  * @param TCond         Boolean type that controlls which branch to expand to.
  * @param TIfTrue       Defined type if `TCond extends true`   branch.
  * @param TElse         Defined type if `TCond extends false`  branch.
  * @param TIfCondIsBool Defined type if `TCond extends boolean`branch.
  */
 export type If<
-    TCond extends boolean, 
-    TIfTrue, 
+    TCond extends boolean,
+    TIfTrue,
     TElse = never,
     TIfCondIsBool = never
 > = (
     Extends<TCond, true>  extends true ? TIfTrue :
-    Extends<TCond, false> extends true ? TElse   : 
+    Extends<TCond, false> extends true ? TElse   :
     TIfCondIsBool
 );
 
@@ -67,14 +67,14 @@ export type Or<T extends boolean[]> = UnionIncludes<UnpackArray<T>, true>;
  * Defines `true` if `TExtender` is assignable to `TExtendee`, otherwise `false`.
  * @param TExtender Type to check for covariance     with `TExtendee`.
  * @param TExtendee Type to check for contravariance with `TExtender`.
- * 
+ *
  * @remarks
  * It verifies that you may physically assign a value of type `TExtender` to `TExtendee`.
  * That's why union types with excess members that are not assignable to `TExtendee`
  * will evaluate to `false`.
  */
 export type Extends<
-    TExtender, 
+    TExtender,
     TExtendee
 // workaround untill this bug is resolved https://github.com/Microsoft/TypeScript/issues/30708
 > = false extends (TExtender extends TExtendee ? true : false) ? false : true;
@@ -87,16 +87,16 @@ export type NotExtends<TExtender, TExtendee> = Not<Extends<TExtender, TExtendee>
 /**
  * Defines `true` if the given `TUnion` includes `TValue`.
  * This type is opposite to `UnionExcludes<>`.
- * 
+ *
  * @param TUnion Union type to search for `TValue` in.
  * @param TValue Type to match with `TUnion` members.
  */
 export type UnionIncludes<TUnion, TValue> = Extends<TValue, Extract<TUnion, TValue>>;
 
 /**
- * Defines `false` if the given `TUnion` includes `TValue`. 
+ * Defines `false` if the given `TUnion` includes `TValue`.
  * This type is opposite to `UnionIncludes<>`.
- * 
+ *
  * @param TUnion Union type to search for `TValue` in.
  * @param TValue Type to match with `TUnion` members.
  */
@@ -108,20 +108,20 @@ export type UnionExcludes<TUnion, TValue> = IsNever<Extract<TUnion, TValue>>;
  * Even `AreSame<unknown, any>` expands to `false`. Only the same types expand to `true`.
  * Beware that this type works as vanilla `extends` clause with function types,
  * so comparing functions is not that strict.
- * 
+ *
  * @param T1 Type to strictly compare to `T2`.
  * @param T2 Type to strictly compare to `T1`.
  */
 export type AreSame<T1, T2> = (
-    If<(IsAny<T1>),       
+    If<(IsAny<T1>),
         IsAny<T2>,
     If<(IsAny<T2>),
         IsAny<T1>,
         And<[
             UnionIncludes<keyof T1, keyof T2>,
             UnionIncludes<keyof T2, keyof T1>,
-            Extends<T1, T2>, 
-            Extends<T2, T1> 
+            Extends<T1, T2>,
+            Extends<T2, T1>
         ]>
     >>
 );
@@ -140,7 +140,7 @@ export type IsUnknown<TSuspect> = And<[IsNotAny<TSuspect>, Extends<unknown, TSus
 
 /**
  * Defines `false` if `TSuspect` is exactly of `any` type, `true` otherwise.
- * @param TSuspect Target type to check. 
+ * @param TSuspect Target type to check.
  */
 export type IsNotAny<TSuspect> = Not<IsAny<TSuspect>>;
 
@@ -179,7 +179,7 @@ export type IsAsyncFunc<TSuspect> = Extends<TSuspect, AsyncFunc>;
  * Defines `true` if `TSuspect` contains both `undefined` and `null` types, `false` otherwise.
  * As a special case, defines `true` when `TSuspect` is `unknown` or `any`,
  * `false` if  `TSuspect` is `never`.
- * 
+ *
  * @param TSuspect Target type to check
  */
 export type IsNullable<TSuspect> = Or<[

@@ -3,10 +3,10 @@ import * as Op from '../type-operators';
 import * as Impl from '../logical';
 
 /**
- * Defines `true` or  `false` by applying the given 
+ * Defines `true` or  `false` by applying the given
  * `TOp` operator object tree to the given `TParam`.
  * @param TOp `BoolOp` operator tree to apply to `TParam`.
- * @param TParam Value of any type to pipe through `BoolOp`.  
+ * @param TParam Value of any type to pipe through `BoolOp`.
  *
  * @remarks
  * Because of some TypeScript limitations and bugs (https://stackoverflow.com/questions/55192212/typescript-circular-type-alias-produces-no-error-and-instead-widens-unit-types)
@@ -29,11 +29,11 @@ type Eval_0<TOp extends Op.BoolOp, TParam> = (
 
     TOp extends Op.If<infer TCond, infer TIfTrue, infer TElse> ? 
     Impl.If<
-        Eval_1<TCond,   TParam>, 
-        Eval_1<TIfTrue, TParam>, 
+        Eval_1<TCond,   TParam>,
+        Eval_1<TIfTrue, TParam>,
         Eval_1<TElse,   TParam>
     > :
-    
+
     TOp extends Op.And <infer TAndOps>  ? Impl.And<EvalAll_0<TAndOps, TParam>> :
     TOp extends Op.Or  <infer TOrOps >  ? Impl.Or <EvalAll_0<TOrOps,  TParam>> :
 
@@ -46,8 +46,8 @@ type Eval_0<TOp extends Op.BoolOp, TParam> = (
     TOp extends Op.Equiv<infer TEquivOp1, infer TEquivOp2>       ? 
     Impl.Equiv<Eval_1<TEquivOp1, TParam>, Eval_1<TEquivOp2, TParam>> :
 
-    
-    TOp extends Op.Extends<infer TExtendee>     ? Impl.Extends<TParam, TExtendee>       :
+
+    TOp extends Op.Extends<infer TExtendee>     ? Impl.Extends<TParam, TExtendee> :
     TOp extends Op.UnionIncludes<infer TNeedle> ? Impl.UnionIncludes<TParam, TNeedle> :
 
     never
@@ -65,11 +65,11 @@ type Eval_1<TOp extends Op.BoolOp, TParam> = (
 
     TOp extends Op.If<infer TCond, infer TIfTrue, infer TElse> ? 
     Impl.If<
-        Eval_2<TCond,   TParam>, 
-        Eval_2<TIfTrue, TParam>, 
+        Eval_2<TCond,   TParam>,
+        Eval_2<TIfTrue, TParam>,
         Eval_2<TElse,   TParam>
     > :
-    
+
     TOp extends Op.And <infer TAndOps>  ? Impl.And<EvalAll_1<TAndOps, TParam>> :
     TOp extends Op.Or  <infer TOrOps >  ? Impl.Or <EvalAll_1<TOrOps,  TParam>> :
 
@@ -82,8 +82,8 @@ type Eval_1<TOp extends Op.BoolOp, TParam> = (
     TOp extends Op.Equiv<infer TEquivOp1, infer TEquivOp2>       ? 
     Impl.Equiv<Eval_2<TEquivOp1, TParam>, Eval_2<TEquivOp2, TParam>> :
 
-    
-    TOp extends Op.Extends<infer TExtendee>     ? Impl.Extends<TParam, TExtendee>       :
+
+    TOp extends Op.Extends<infer TExtendee>     ? Impl.Extends<TParam, TExtendee> :
     TOp extends Op.UnionIncludes<infer TNeedle> ? Impl.UnionIncludes<TParam, TNeedle> :
 
     never
@@ -101,11 +101,11 @@ type Eval_2<TOp extends Op.BoolOp, TParam> = (
 
     TOp extends Op.If<infer TCond, infer TIfTrue, infer TElse> ? 
     Impl.If<
-        Eval_3<TCond,   TParam>, 
-        Eval_3<TIfTrue, TParam>, 
+        Eval_3<TCond,   TParam>,
+        Eval_3<TIfTrue, TParam>,
         Eval_3<TElse,   TParam>
     > :
-    
+
     TOp extends Op.And <infer TAndOps>  ? Impl.And<EvalAll_2<TAndOps, TParam>> :
     TOp extends Op.Or  <infer TOrOps >  ? Impl.Or <EvalAll_2<TOrOps,  TParam>> :
 
@@ -118,8 +118,8 @@ type Eval_2<TOp extends Op.BoolOp, TParam> = (
     TOp extends Op.Equiv<infer TEquivOp1, infer TEquivOp2>       ? 
     Impl.Equiv<Eval_3<TEquivOp1, TParam>, Eval_3<TEquivOp2, TParam>> :
 
-    
-    TOp extends Op.Extends<infer TExtendee>     ? Impl.Extends<TParam, TExtendee>       :
+
+    TOp extends Op.Extends<infer TExtendee>     ? Impl.Extends<TParam, TExtendee> :
     TOp extends Op.UnionIncludes<infer TNeedle> ? Impl.UnionIncludes<TParam, TNeedle> :
 
     never
@@ -137,11 +137,11 @@ type Eval_3<TOp extends Op.BoolOp, TParam> = (
 
     TOp extends Op.If<infer TCond, infer TIfTrue, infer TElse> ? 
     Impl.If<
-        Eval_4<TCond,   TParam>, 
-        Eval_4<TIfTrue, TParam>, 
+        Eval_4<TCond,   TParam>,
+        Eval_4<TIfTrue, TParam>,
         Eval_4<TElse,   TParam>
     > :
-    
+
     TOp extends Op.And <infer TAndOps>  ? Impl.And<EvalAll_3<TAndOps, TParam>> :
     TOp extends Op.Or  <infer TOrOps >  ? Impl.Or <EvalAll_3<TOrOps,  TParam>> :
 
@@ -154,8 +154,8 @@ type Eval_3<TOp extends Op.BoolOp, TParam> = (
     TOp extends Op.Equiv<infer TEquivOp1, infer TEquivOp2>       ? 
     Impl.Equiv<Eval_4<TEquivOp1, TParam>, Eval_4<TEquivOp2, TParam>> :
 
-    
-    TOp extends Op.Extends<infer TExtendee>     ? Impl.Extends<TParam, TExtendee>       :
+
+    TOp extends Op.Extends<infer TExtendee>     ? Impl.Extends<TParam, TExtendee> :
     TOp extends Op.UnionIncludes<infer TNeedle> ? Impl.UnionIncludes<TParam, TNeedle> :
 
     never
