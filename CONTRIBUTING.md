@@ -1,10 +1,10 @@
 # How to contribute
 
-* Edit documentation.
-* Propose new build stages and tools.
 * Define new TypeScript types.
 * Define new functions.
 * Define new classes.
+* Edit documentation.
+* Propose new build stages and tools.
 
 ## Create an issue or pull request
 
@@ -12,6 +12,8 @@ Feel free to create issues and pull requests with any kind of proposals and enha
 
 ## Code conventions
 
+### Commit names
+All commit names should follow [conventional-commits protocol](https://www.conventionalcommits.org/en/v1.0.0/).
 
 ### Project structure
 All source code resides in `lib` directory.
@@ -30,11 +32,11 @@ All source code resides in `lib` directory.
 
 Add your code to the proper directory. *You may create new subdirectories and/or files if it makes sense*, otherwise feel free to edit existing files.
 
-Files are named to categorize their functional units in order to divide one big file into a neat tree structure. It is not that important how you name files and directories (but use dash as a word separator).
+Files are named to categorize their functional units in order to divide one big file into a neat tree structure. It is not that important how you name files and directories (but use dash as a word separator, i.e. `kebab-case`).
 
 ### Producing functional units
 
-**Everything must be documented with [typedoc](https://github.com/TypeStrong/typedoc)** comments format. 
+**Everything must be documented with [typedoc](https://github.com/TypeStrong/typedoc)** comments format.
 
 * Try not to omit `@param` declarations even if those seem to be obvious.
 * Put `@remarks` part at the end of comment.
@@ -54,5 +56,5 @@ Add new file with the name that corresponds to the function/class you are testin
 Test your types in `/test/types-test.ts` file.
 
 #### Mocks
-Use/add mock data to `/test/mocks.ts`
+Use/add mock data to `/test/helpers/mocks.ts`
 

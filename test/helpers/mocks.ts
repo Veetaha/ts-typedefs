@@ -56,10 +56,10 @@ export interface Obj5 {
     never:     never;
 }
 
-export class ClassObj { 
+export class ClassObj {
     num!: number;
     fn = function (this: Obj1) {};
-    voidMethod() {}    
+    voidMethod() {}
 }
 
 export interface CyclicObjOr<T> {
