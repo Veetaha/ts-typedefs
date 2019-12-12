@@ -7,7 +7,7 @@ import { PickAsReadonly, PickAsMutable } from './pick';
  * @param TKeys Union type of keys that will be defined as mutable in the resulting type.
  */
 export type Mutable<
-    TObj extends Obj, 
+    TObj extends Obj,
     TKeys extends keyof TObj = keyof TObj
 > = Merge<TObj, PickAsMutable<TObj, TKeys>>;
 
@@ -16,7 +16,7 @@ export type Mutable<
  * @param TObj Target object type to make its properties recursively mutable.
  */
 export type DeepMutable<TObj extends Obj> = {
-    -readonly [TKey in keyof TObj]: TObj[TKey] extends infer TVal 
+    -readonly [TKey in keyof TObj]: TObj[TKey] extends infer TVal
         ? (TVal extends Obj ? DeepMutable<TVal> : TVal)
         : never;
 };
@@ -26,7 +26,7 @@ export type DeepMutable<TObj extends Obj> = {
  * @param TObj Target object type to make its properties recursively readonly.
  */
 export type DeepReadonly<TObj extends Obj> = {
-    +readonly [TKey in keyof TObj]: TObj[TKey] extends infer TVal 
+    +readonly [TKey in keyof TObj]: TObj[TKey] extends infer TVal
         ? (TVal extends Obj ? DeepReadonly<TVal> : TVal)
         : never;
 };
@@ -37,6 +37,6 @@ export type DeepReadonly<TObj extends Obj> = {
  * @param TKeys Union type of keys that will be defined as readonly in the resulting type.
  */
 export type Readonly<
-    TObj extends Obj, 
+    TObj extends Obj,
     TKeys extends keyof TObj
 > = Merge<TObj, PickAsReadonly<TObj, TKeys>>;

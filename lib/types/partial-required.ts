@@ -1,7 +1,7 @@
 import { Obj, Merge } from './index';
 import { PickAsOptional, PickAsRequired } from './pick';
 
-/** 
+/**
  * Defines the same type as `TObj` but all properties are made recursively `Partial<>`.
  * @param TObj Object type to make all properties optional.
  */
@@ -9,8 +9,8 @@ export type DeepPartial<TObj extends Obj> = {
 
     // define type TVal variable to distribute union
 
-    [TKey in keyof TObj]+?: TObj[TKey] extends infer TVal 
-        ? (TVal extends Obj ? DeepPartial<TVal> : TVal)     
+    [TKey in keyof TObj]+?: TObj[TKey] extends infer TVal
+        ? (TVal extends Obj ? DeepPartial<TVal> : TVal)
         : never;
 };
 
@@ -19,8 +19,8 @@ export type DeepPartial<TObj extends Obj> = {
  * Defines the same type as `TObj` but all properties are made recursively `Required<>`.
  * @param TObj Object type to remove optional `?` flag from.
  */
-export type DeepRequired<TObj extends Obj> = { 
-    [TKey in keyof TObj]-?: TObj[TKey] extends infer TVal 
+export type DeepRequired<TObj extends Obj> = {
+    [TKey in keyof TObj]-?: TObj[TKey] extends infer TVal
         ? (TVal extends Obj ? DeepRequired<TVal> : TVal)
         : never;
 };
@@ -31,7 +31,7 @@ export type DeepRequired<TObj extends Obj> = {
  * @param TKeys Union type of keys that will be defined as optional in the resulting type.
  */
 export type Partial<
-    TObj extends Obj, 
+    TObj extends Obj,
     TKeys extends keyof TObj = keyof TObj
 > = Merge<TObj, PickAsOptional<TObj, TKeys>>;
 
@@ -42,6 +42,6 @@ export type Partial<
  * @param TKeys Union type of keys that will be defined as required in the resulting type.
  */
 export type Required<
-    TObj extends Obj, 
+    TObj extends Obj,
     TKeys extends keyof TObj = keyof TObj
 > = Merge<TObj, PickAsRequired<TObj, TKeys>>;

@@ -1,6 +1,6 @@
 /**
  * Defines boolean type opeartor tree type.
- * E.g. 
+ * E.g.
  * ```ts
  * import { Op } from 'ts-typedefs';
  * type ExampleBoolOp = Op.Or<
@@ -13,19 +13,19 @@
  * ```
  */
 export type BoolOp = (
-    | true 
+    | true
     | false
 
     | If<any, any, any>
-    | Not<any> 
+    | Not<any>
     | Or<any>
     | Nor<any>
-    | And<any> 
+    | And<any>
     | Nand<any>
     | Xor<any, any>
     | Equiv<any, any>
 
-    | UnionIncludes 
+    | UnionIncludes
     | Extends
 );
 
@@ -36,8 +36,8 @@ export type BoolOp = (
  * @param TElse    False branch operator.
  */
 export interface If<
-    TCond   extends BoolOp, 
-    TIfTrue extends BoolOp, 
+    TCond   extends BoolOp,
+    TIfTrue extends BoolOp,
     TElse   extends BoolOp = never
 > {
     'ts-typedefs.Op.If': [TCond, TIfTrue, TElse];
@@ -112,7 +112,7 @@ export type NotExtends<TExtendee = unknown> = Not<Extends<TExtendee>>;
 
 /**
  * Defines the logical operator to check that the given parameter extends `TExtendee`.
- */                   
+ */
 export interface UnionIncludes<TNeedle = unknown> {
     'ts-typedefs.Op.UnionIncludes': TNeedle;
 }

@@ -1,11 +1,11 @@
 /**
  * Class used to perform `never` type value checks in unreachable code.
- * 
+ *
  * @remarks
  * ```ts
  * import { Debug } from 'ts-typedefs';
  * declare const val: string | number;
- * 
+ *
  * if (typeof val === 'string') {
  *      return null;
  * } else if (typeof val === 'number') {

@@ -2,7 +2,7 @@ import { Tuple, Obj, TypePredicate } from './index';
 
 /**
  * Defines the type of value, which is passed to `TPromise.then(cb)` `cb` callback.
- * 
+ *
  * @param TPromise Target `Promise` to unpack result from.
  */
 export type UnpackPromise<TPromise extends Promise<any>> = (
@@ -11,7 +11,7 @@ export type UnpackPromise<TPromise extends Promise<any>> = (
 
 /**
  * Defines the type of values of the given `TArray`
- * 
+ *
  * @param TArray Type of array to infer items type from.
  */
 export type UnpackArray<TArray extends any[]> = (
@@ -29,17 +29,17 @@ export type TupleToArray<TTuple extends Tuple> = (
 /**
  * Defines `string` or `number` or `boolean` or `Array<T[number]>` that represents
  * a widened contravariant version of the given unit type `T`.
- * 
+ *
  * @param T Unit type to widen.
- * 
+ *
  * @remarks
  * * If `T` is a tuple type it is widened to `Array<>` type.
  * * If `T` is string or number literal or `true` or `false` it gets widened to
  * `string` or `number` or `boolean` respectivelly.
- * * If `T` is not a unit type, it is left as it is. 
+ * * If `T` is not a unit type, it is left as it is.
  */
 export type Widen<T> = (
-    T extends number  ? number  : 
+    T extends number  ? number  :
     T extends boolean ? boolean :
     T extends string  ? string  :
     T extends Tuple   ? TupleToArray<T> :
@@ -57,7 +57,7 @@ export type DeepWiden<TObj extends Obj> = DeepWidenImpl<
 >;
 
 type DeepWidenImpl<TObj extends Obj> = {
-    [TKey in keyof TObj]: TObj[TKey] extends infer TVal 
+    [TKey in keyof TObj]: TObj[TKey] extends infer TVal
         ? (TVal extends Obj ? DeepWiden<TVal> : Widen<TVal>)
         : never;
 };
@@ -65,7 +65,7 @@ type DeepWidenImpl<TObj extends Obj> = {
 
 /**
  * Defines a type that the given `TTypePred` checks its `suspect` to conform to.
- * 
+ *
  * @param TTypePred Target `TypePredicate` function to unpack.
  */
 export type UnpackTypePredicate<TTypePred extends TypePredicate> = (

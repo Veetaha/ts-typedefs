@@ -21,7 +21,7 @@ export type DeepNullable<TObj extends Obj> = {
  * Defines the same type as `TObj` but with all properties made `NonNullable<>` recursively.
  * @param TObj Target object type to make its properties recursively non-nullable.
  */
-export type DeepNonNullable<TObj extends Obj> = { 
+export type DeepNonNullable<TObj extends Obj> = {
     [TKey in keyof TObj]-?: TObj[TKey] extends infer TVal
         ? (TVal extends Obj ? DeepNonNullable<TVal> : NonNullable<TVal>)
         : never;

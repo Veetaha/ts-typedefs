@@ -1,13 +1,13 @@
 /**
  * Defines an intersection type of all union items.
- * 
+ *
  * @param TUnion Union of any types that will be intersected.
- * 
+ *
  * @remarks
  * Because of TypeScript boolean representation as `type boolean = true | false`
  * you get the following result:
  * `UnionToIntersection<boolean> === true & false`
- * 
+ *
  * @copyright
  * https://stackoverflow.com/a/50375286/9259330
  */
