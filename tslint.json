@@ -5,6 +5,7 @@
     "rules": {
         "no-var-keyword": true,
         "no-arg": true,
+        "no-trailing-whitespace": true,
         "triple-equals": [true, "allow-null-check"],
         "semicolon": true,
         "adjacent-overload-signatures": true,
