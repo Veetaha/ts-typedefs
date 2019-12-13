@@ -15,4 +15,3 @@ export type UnionToIntersection<TUnion> = (
     PackIntoFunctionParam<TUnion> extends (param: infer TItem) => void ? TItem : never
 );
 type PackIntoFunctionParam<T> = T extends any ? (param: T) => void : never;
-

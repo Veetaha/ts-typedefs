@@ -14,6 +14,7 @@ export * from './readonly-mutable';
 export * from './unpackings';
 export * from './tag';
 export * from './tuples';
+export * from './discriminated-union';
 
 import * as Op from './type-operators';
 export { Op };
