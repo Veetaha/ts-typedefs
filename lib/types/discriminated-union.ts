@@ -14,7 +14,9 @@ import { Obj } from "./objects";
  * In this case the discriminator of the union is the unit type `undefined`.
  *
  * ```ts
- * // Properties "a" and "b" on foo may not coexist, one of them must be undefined.
+ * // Properties "a" and "c" on foo may not coexist, one of them must be undefined.
+ * // Type of property "b" depends on the active object shape (it may be either
+ * // number or string)
  * type Foo = MutuallyExclusive<{ a: string, b: string }, { b: number, c: boolean }>;
  *
  * declare const val: Foo;
