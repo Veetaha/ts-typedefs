@@ -20,9 +20,9 @@ import { Obj } from "./objects";
  * declare const val: Foo;
  *
  * if (val.a == null) {
- *     val; // { a: undefined, b: number, c: boolean }
+ *     val; // { a?: undefined, b: number, c: boolean }
  * } else {
- *     val; // { a: string, b: string, c: undefined }
+ *     val; // { a: string, b: string, c?: undefined }
  * }
  * ```
  */
