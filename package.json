@@ -1,6 +1,6 @@
 {
     "name": "ts-typedefs",
-    "version": "3.1.0",
+    "version": "3.2.0",
     "description": "A handy collection of TypeScript plain and generic type definitions and interfaces.",
     "main": "build/lib/index.js",
     "types": "build/lib/index.d.ts",
@@ -20,7 +20,7 @@
     "scripts": {
         "lint": "tslint -p tsconfig.json",
         "pre-deploy": "npm-run-all test build",
-        "build": "     npm-run-all clean codegen transpile",
+        "build": "     npm-run-all clean codegen lint transpile",
         "test": "      jest",
         "transpile": " tsc",
         "clean": "     rimraf build",
