@@ -40,28 +40,28 @@ export interface If<
     TIfTrue extends BoolOp,
     TElse   extends BoolOp = never
 > {
-    'ts-typedefs.Op.If': [TCond, TIfTrue, TElse];
+    /** @hidden */ 'ts-typedefs.Op.If': [TCond, TIfTrue, TElse];
 }
 
 /**
  * Defines a logical negation operator applied to the given `TBoolOp`.
  */
 export interface Not<TBoolOp extends BoolOp> {
-    'ts-typedefs.Op.Not': TBoolOp;
+    /** @hidden */ 'ts-typedefs.Op.Not': TBoolOp;
 }
 
 /**
  * Defines a logical `and` operator applied to all the given `TBoolOps`.
  */
 export interface And<TBoolOps extends BoolOp[]> {
-    'ts-typedefs.Op.And': TBoolOps;
+    /** @hidden */ 'ts-typedefs.Op.And': TBoolOps;
 }
 
 /**
  * Defines a logical `or` operator applied to all the given `TBoolOps`.
  */
 export interface Or<TBoolOps extends BoolOp[]> {
-    'ts-typedefs.Op.Or': TBoolOps;
+    /** @hidden */ 'ts-typedefs.Op.Or': TBoolOps;
 }
 
 
@@ -70,7 +70,7 @@ export interface Or<TBoolOps extends BoolOp[]> {
  * Same as `Op.Not<Op.And<TBoolOps>>`.
  */
 export interface Nand<TBoolOps extends BoolOp[]> {
-    'ts-typedefs.Op.Nand': TBoolOps;
+    /** @hidden */ 'ts-typedefs.Op.Nand': TBoolOps;
 }
 
 /**
@@ -78,7 +78,7 @@ export interface Nand<TBoolOps extends BoolOp[]> {
  * Same as `Op.Not<Op.Or<TBoolOps>>`.
  */
 export interface Nor<TBoolOps extends BoolOp[]> {
-    'ts-typedefs.Op.Nor': TBoolOps;
+    /** @hidden */ 'ts-typedefs.Op.Nor': TBoolOps;
 }
 
 /**
@@ -86,7 +86,7 @@ export interface Nor<TBoolOps extends BoolOp[]> {
  * Same as `Op.Not<Op.Equiv<TBoolOp1, TBoolOp2>>`.
  */
 export interface Xor<TBoolOp1 extends BoolOp, TBoolOp2 extends BoolOp> {
-    'ts-typedefs.Op.Xor': [TBoolOp1, TBoolOp2];
+    /** @hidden */ 'ts-typedefs.Op.Xor': [TBoolOp1, TBoolOp2];
 }
 
 /**
@@ -94,7 +94,7 @@ export interface Xor<TBoolOp1 extends BoolOp, TBoolOp2 extends BoolOp> {
  * Same as `Op.Not<Op.Xor<TBoolOp1, TBoolOp2>>`.
  */
 export interface Equiv<TBoolOp1 extends BoolOp, TBoolOp2 extends BoolOp> {
-    'ts-typedefs.Op.Equiv': [TBoolOp1, TBoolOp2];
+    /** @hidden */ 'ts-typedefs.Op.Equiv': [TBoolOp1, TBoolOp2];
 }
 
 
@@ -102,7 +102,7 @@ export interface Equiv<TBoolOp1 extends BoolOp, TBoolOp2 extends BoolOp> {
  * Defines a logical operator that verifies the given parameter to extend `TExtendee`.
  */
 export interface Extends<TExtendee = unknown> {
-    'ts-typedefs.Op.Extends': TExtendee;
+    /** @hidden */ 'ts-typedefs.Op.Extends': TExtendee;
 }
 
 /**
@@ -114,7 +114,7 @@ export type NotExtends<TExtendee = unknown> = Not<Extends<TExtendee>>;
  * Defines the logical operator to check that the given parameter extends `TExtendee`.
  */
 export interface UnionIncludes<TNeedle = unknown> {
-    'ts-typedefs.Op.UnionIncludes': TNeedle;
+    /** @hidden */ 'ts-typedefs.Op.UnionIncludes': TNeedle;
 }
 
 /**
