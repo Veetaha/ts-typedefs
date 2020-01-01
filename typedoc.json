@@ -1,16 +1,14 @@
 {
-    "mode":                           "file",
-    "out":                            "docs",
-    "exclude":                        "test",
-    "theme":                          "default",
-    "ignoreCompilerErrors":           true,
-    "excludePrivate":                 true,
-    "excludeNotExported":             true,
-    "target":                         "es2019",
-    "moduleResolution":               "node",
-    "preserveConstEnums":             true,
-    "stripInternal":                  true,
-    "suppressExcessPropertyErrors":   true,
-    "suppressImplicitAnyIndexErrors": true,
-    "module":                         "commonjs"
+    "mode": "file",
+    "out": "docs",
+    "exclude": "test",
+    "theme": "./node_modules/eledoc/bin/default/",
+    "ignoreCompilerErrors": false,
+    "excludePrivate": true,
+    "excludeNotExported": true,
+    "target": "es2019",
+    "moduleResolution": "node",
+    "preserveConstEnums": true,
+    "stripInternal": true,
+    "module": "commonjs"
 }
